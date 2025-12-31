@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { MissionProgressIndicator } from '../components/MissionProgressIndicator';
+import { NewGameDialog } from '../components/NewGameDialog';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../hooks/useTranslation';
 import { getSpies, getResistance } from '../utils/gameLogic';
 
 export function Victory() {
-  const { missions, players, resetGame, winner, winReason } = useGameStore();
+  const [newGameOpen, setNewGameOpen] = useState(false);
+  const { missions, players, winner, winReason } = useGameStore();
   const { t } = useTranslation();
 
   if (!winner) return null;
@@ -19,10 +22,6 @@ export function Victory() {
   const resistance = getResistance(players);
 
   const isResistanceWin = winner === 'resistance';
-
-  const handleNewGame = () => {
-    resetGame();
-  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
@@ -116,12 +115,12 @@ export function Victory() {
             </div>
 
             <Button
-              onClick={handleNewGame}
+              onClick={() => setNewGameOpen(true)}
               fullWidth
               size="lg"
               variant="primary"
             >
-              {t('victory.playAgain')}
+              {t('common.newGame')}
             </Button>
           </div>
         </Card>
@@ -133,6 +132,8 @@ export function Victory() {
           </p>
         </div>
       </div>
+
+      <NewGameDialog open={newGameOpen} onClose={() => setNewGameOpen(false)} />
     </div>
   );
 } 

@@ -9,6 +9,7 @@ import { TeamVote } from './screens/TeamVote';
 import { MissionVote } from './screens/MissionVote';
 import { MissionResult } from './screens/MissionResult';
 import { Victory } from './screens/Victory';
+import { NewGameButton } from './components/NewGameButton';
 
 function App() {
   const [hasHydrated, setHasHydrated] = useState(useGameStore.persist.hasHydrated());
@@ -66,6 +67,7 @@ function App() {
   return (
     <div className="app-shell">
       <div className="app-shell__content">{renderScreen()}</div>
+      {phase !== 'lobby' && phase !== 'victory' && <NewGameButton />}
     </div>
   );
 }

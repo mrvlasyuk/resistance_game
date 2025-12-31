@@ -8,6 +8,10 @@
     "newGame": "New Game",
     "loading": "Loading..."
   },
+  "newGame": {
+    "warning": "This will clear the current game on this device.",
+    "holdToConfirm": "Hold {{seconds}}s to confirm"
+  },
   "lobby": {
     "title": "The Resistance",
     "subtitle": "Secret Helper Device",
