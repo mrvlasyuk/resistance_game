@@ -1,0 +1,100 @@
+{
+  "common": {
+    "next": "Далее",
+    "back": "Назад",
+    "confirm": "Подтвердить",
+    "cancel": "Отмена",
+    "clearScreen": "Очистить экран",
+    "newGame": "Новая игра",
+    "loading": "Загрузка..."
+  },
+  "lobby": {
+    "title": "Сопротивление",
+    "subtitle": "Секретное устройство помощника",
+    "playerCount": "Количество игроков",
+    "playerCountHelp": "Выберите от 5 до 10 игроков",
+    "startGame": "Начать игру",
+    "languageSwitch": "Переключить на английский"
+  },
+  "nameEntry": {
+    "title": "Настройка игроков",
+    "enterName": "Введите ваше имя",
+    "playerNumber": "Игрок {{number}}",
+    "yourRole": "Ваша роль",
+    "resistance": "Сопротивление",
+    "spy": "Шпион",
+    "spyList": "Другие шпионы:",
+    "autoClose": "Экран очистится через {{seconds}}с",
+    "roleDescription": {
+      "resistance": "Вы боретесь против шпионов. Голосуйте УСПЕХ на миссиях.",
+      "spy": "Вы внедряетесь в сопротивление. Вы можете голосовать УСПЕХ или ПРОВАЛ на миссиях."
+    }
+  },
+  "captain": {
+    "title": "Миссия {{number}}",
+    "currentCaptain": "Текущий капитан",
+    "selectTeam": "Капитан должен выбрать команду для этой миссии"
+  },
+  "teamSelect": {
+    "title": "Выбор команды миссии",
+    "missionNumber": "Миссия {{number}}",
+    "teamSize": "Выберите {{count}} игроков",
+    "selectedCount": "Выбрано: {{selected}}/{{total}}",
+    "playerList": "Игроки",
+    "rejectTeam": "Отклонить команду",
+    "rejectedTeamsCount": "Отклонено команд: {{count}}/5"
+  },
+  "teamVote": {
+    "title": "Подтверждение команды (Миссия {{number}})",
+    "subtitle": "Проголосуйте оффлайн, затем отметьте результат здесь",
+    "proposedTeam": "Предложенная команда",
+    "approve": "За",
+    "reject": "Против",
+    "confirmChoice": "Подтвердите ваш выбор",
+    "approved": "УТВЕРЖДЕНО",
+    "rejected": "ОТКЛОНЕНО",
+    "resultSubtitle": "Результат голосования",
+    "continue": "Продолжить",
+    "playerTurn": "Голос {{playerName}}",
+    "chooseVote": "Утвердить или отклонить предложенную команду:"
+  },
+  "missionVote": {
+    "title": "Голосование в миссии",
+    "subtitle": "Передайте устройство следующему участнику команды",
+    "playerTurn": "Ход {{playerName}}",
+    "chooseCard": "Выберите вашу карту миссии:",
+    "success": "Успех",
+    "fail": "Провал",
+    "confirmChoice": "Подтвердите ваш выбор",
+    "passDevice": "Передать устройство следующему игроку",
+    "allVoted": "Все игроки проголосовали"
+  },
+  "missionResult": {
+    "title": "Результат миссии {{number}}",
+    "success": "УСПЕХ",
+    "fail": "ПРОВАЛ",
+    "failByRejection": "ПРОВАЛ<br/>5 команд отклонено",
+    "cardReveal": "Карты миссии:",
+    "score": "Текущий счет",
+    "resistanceWins": "Победы Сопротивления",
+    "spyWins": "Победы Шпионов",
+    "nextMission": "Следующая миссия",
+    "gameOver": "Игра окончена"
+  },
+  "victory": {
+    "resistanceWins": "Сопротивление побеждает!",
+    "spiesWin": "Шпионы побеждают!",
+    "spiesWinReasonTeamRejections": "Шпионы побеждают — 5 команд отклонено.",
+    "finalScore": "Финальный счет",
+    "playAgain": "Играть снова"
+  },
+  "rules": {
+    "playerRoles": "Роли игроков",
+    "missionRules": "Правила миссий",
+    "victoryConditions": "Условия победы"
+  },
+  "mission": {
+    "teamSizeLabel": "Размер команды",
+    "playersNeeded": "нужно {{count}} игроков"
+  }
+} 

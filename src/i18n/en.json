@@ -1,0 +1,100 @@
+{
+  "common": {
+    "next": "Next",
+    "back": "Back",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "clearScreen": "Clear Screen",
+    "newGame": "New Game",
+    "loading": "Loading..."
+  },
+  "lobby": {
+    "title": "The Resistance",
+    "subtitle": "Secret Helper Device",
+    "playerCount": "Number of Players",
+    "playerCountHelp": "Select between 5-10 players",
+    "startGame": "Start Game",
+    "languageSwitch": "Switch to Russian"
+  },
+  "nameEntry": {
+    "title": "Player Setup",
+    "enterName": "Enter your name",
+    "playerNumber": "Player {{number}}",
+    "yourRole": "Your Role",
+    "resistance": "Resistance",
+    "spy": "Spy",
+    "spyList": "Other Spies:",
+    "autoClose": "Screen will clear in {{seconds}}s",
+    "roleDescription": {
+      "resistance": "You are fighting against the spies. Vote SUCCESS on missions.",
+      "spy": "You are infiltrating the resistance. You can vote SUCCESS or FAIL on missions."
+    }
+  },
+  "captain": {
+    "title": "Mission {{number}}",
+    "currentCaptain": "Current Captain",
+    "selectTeam": "Captain must select the team for this mission"
+  },
+  "teamSelect": {
+    "title": "Select Mission Team",
+    "missionNumber": "Mission {{number}}",
+    "teamSize": "Select {{count}} players",
+    "selectedCount": "Selected: {{selected}}/{{total}}",
+    "playerList": "Players",
+    "rejectTeam": "Reject Team",
+    "rejectedTeamsCount": "Rejected teams: {{count}}/5"
+  },
+  "teamVote": {
+    "title": "Team Approval (Mission {{number}})",
+    "subtitle": "Vote offline, then confirm the result here",
+    "proposedTeam": "Proposed Team",
+    "approve": "Approve",
+    "reject": "Reject",
+    "confirmChoice": "Confirm your choice",
+    "approved": "APPROVED",
+    "rejected": "REJECTED",
+    "resultSubtitle": "Vote results",
+    "continue": "Continue",
+    "playerTurn": "{{playerName}}'s Vote",
+    "chooseVote": "Approve or reject the proposed team:"
+  },
+  "missionVote": {
+    "title": "Mission Vote",
+    "subtitle": "Pass the device to the next team member",
+    "playerTurn": "{{playerName}}'s Turn",
+    "chooseCard": "Choose your mission card:",
+    "success": "Success",
+    "fail": "Fail",
+    "confirmChoice": "Confirm your choice",
+    "passDevice": "Pass device to next player",
+    "allVoted": "All players have voted"
+  },
+  "missionResult": {
+    "title": "Mission {{number}} Result",
+    "success": "SUCCESS",
+    "fail": "FAILED",
+    "failByRejection": "FAILED<br/>5 teams rejected",
+    "cardReveal": "Mission Cards:",
+    "score": "Current Score",
+    "resistanceWins": "Resistance Victories",
+    "spyWins": "Spy Victories",
+    "nextMission": "Next Mission",
+    "gameOver": "Game Over"
+  },
+  "victory": {
+    "resistanceWins": "Resistance Wins!",
+    "spiesWin": "Spies Win!",
+    "spiesWinReasonTeamRejections": "Spies win — 5 teams were rejected.",
+    "finalScore": "Final Score",
+    "playAgain": "Play Again"
+  },
+  "rules": {
+    "playerRoles": "Player Roles",
+    "missionRules": "Mission Rules",
+    "victoryConditions": "Victory Conditions"
+  },
+  "mission": {
+    "teamSizeLabel": "Team size",
+    "playersNeeded": "{{count}} players needed"
+  }
+} 
