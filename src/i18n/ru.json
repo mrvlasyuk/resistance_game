@@ -62,6 +62,8 @@
     "title": "Голосование в миссии",
     "subtitle": "Передайте устройство следующему участнику команды",
     "playerTurn": "Ход {{playerName}}",
+    "progress": "Игрок {{current}} / {{total}}",
+    "missionTeam": "Команда миссии",
     "chooseCard": "Выберите вашу карту миссии:",
     "success": "Успех",
     "fail": "Провал",
@@ -86,7 +88,8 @@
     "spiesWin": "Шпионы побеждают!",
     "spiesWinReasonTeamRejections": "Шпионы побеждают — 5 команд отклонено.",
     "finalScore": "Финальный счет",
-    "playAgain": "Играть снова"
+    "playAgain": "Играть снова",
+    "thanks": "Спасибо за игру!"
   },
   "rules": {
     "playerRoles": "Роли игроков",

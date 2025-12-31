@@ -85,7 +85,7 @@ export function MissionResult() {
           </h1>
           
           <div className={`text-6xl font-bold mb-4 ${
-            isSuccess ? 'text-green-500' : 'text-red-500'
+            isSuccess ? 'text-emerald-400' : 'text-rose-400'
           }`}>
             {isSuccess ? t('missionResult.success') : t('missionResult.fail')}
           </div>
@@ -94,7 +94,7 @@ export function MissionResult() {
         <Card>
           <div className="space-y-6">
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-gray-300 mb-4">
+              <h3 className="text-lg font-semibold text-white/70 mb-4">
                 {t('missionResult.cardReveal')}
               </h3>
               
@@ -103,33 +103,33 @@ export function MissionResult() {
               </div>
               
               {showCards && (
-                <div className="text-sm text-gray-400 space-y-1">
+                <div className="text-sm text-white/60 space-y-1">
                   <p>{t('missionVote.success')}: {successVotes}</p>
                   <p>{t('missionVote.fail')}: {failVotes}</p>
                 </div>
               )}
             </div>
 
-            <div className="border-t border-gray-700 pt-6">
-              <h3 className="text-lg font-semibold text-gray-300 mb-4 text-center">
+            <div className="divider pt-6">
+              <h3 className="text-lg font-semibold text-white/70 mb-4 text-center">
                 {t('missionResult.score')}
               </h3>
               
               <div className="flex justify-between items-center">
                 <div className="text-center">
-                  <div className="text-blue-400 font-semibold">
+                  <div className="text-blue-300 font-semibold">
                     {t('missionResult.resistanceWins')}
                   </div>
-                  <div className="text-2xl font-bold text-blue-500">
+                  <div className="text-2xl font-bold text-blue-200">
                     {resistanceWins}
                   </div>
                 </div>
                 
                 <div className="text-center">
-                  <div className="text-red-400 font-semibold">
+                  <div className="text-rose-300 font-semibold">
                     {t('missionResult.spyWins')}
                   </div>
-                  <div className="text-2xl font-bold text-red-500">
+                  <div className="text-2xl font-bold text-rose-200">
                     {spyWins}
                   </div>
                 </div>

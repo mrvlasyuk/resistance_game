@@ -44,7 +44,7 @@ export function PrivateScreen({
         {children}
         
         {autoCloseSeconds > 0 && (
-          <div className="mt-6 text-gray-400 text-sm">
+          <div className="mt-6 text-white/60 text-sm">
             {t('nameEntry.autoClose', { seconds: secondsLeft })}
           </div>
         )}

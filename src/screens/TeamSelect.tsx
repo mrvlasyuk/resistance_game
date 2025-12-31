@@ -38,23 +38,25 @@ export function TeamSelect() {
           <h1 className="text-3xl font-bold text-white mb-2">
             {t('teamSelect.title')}
           </h1>
-          <p className="text-gray-400">
+          <p className="text-white/60">
             {t('teamSelect.missionNumber', { number: missionNumber })}
           </p>
-          <p className="text-blue-400 font-semibold">
-            {t('teamSelect.teamSize', { count: requiredTeamSize })}
-          </p>
-          {rejectedTeamsCount > 0 && (
-            <p className="text-red-400 text-sm mt-2">
-              {t('teamSelect.rejectedTeamsCount', { count: rejectedTeamsCount })}
-            </p>
-          )}
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+            <span className="pill pill-warning">
+              {t('teamSelect.teamSize', { count: requiredTeamSize })}
+            </span>
+            {rejectedTeamsCount > 0 && (
+              <span className="pill pill-danger">
+                {t('teamSelect.rejectedTeamsCount', { count: rejectedTeamsCount })}
+              </span>
+            )}
+          </div>
         </div>
 
         <Card>
           <div className="space-y-6">
             <div className="text-center">
-              <p className="text-sm text-gray-400 mb-4">
+              <p className="text-sm text-white/60 mb-4">
                 {t('teamSelect.selectedCount', { 
                   selected: selectedPlayers.length, 
                   total: requiredTeamSize 
@@ -63,7 +65,7 @@ export function TeamSelect() {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-gray-300 mb-4">
+              <h3 className="text-lg font-semibold text-white/70 mb-4">
                 {t('teamSelect.playerList')}
               </h3>
               <div className="space-y-2">
@@ -75,15 +77,15 @@ export function TeamSelect() {
                       !selectedPlayers.includes(player.id) && 
                       selectedPlayers.length >= requiredTeamSize
                     }
-                    className={`w-full p-4 rounded-lg font-semibold transition-colors duration-200 text-left ${
+                    className={`w-full p-4 rounded-lg font-semibold transition-colors duration-150 text-left border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 disabled:opacity-50 disabled:cursor-not-allowed ${
                       selectedPlayers.includes(player.id)
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed'
+                        ? 'bg-blue-600 text-white border-blue-700'
+                        : 'bg-slate-800 text-white/80 border-slate-700 hover:bg-slate-700'
                     }`}
                   >
                     {player.name}
                     {selectedPlayers.includes(player.id) && (
-                      <span className="float-right">✓</span>
+                      <span className="float-right text-white/90">✓</span>
                     )}
                   </button>
                 ))}

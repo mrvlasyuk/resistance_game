@@ -15,13 +15,14 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const baseClasses = 'font-semibold rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation';
+  const baseClasses =
+    'font-semibold rounded-lg transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950';
   
   const variantClasses = {
-    primary: 'bg-blue-600 hover:bg-blue-700 text-white',
-    secondary: 'bg-gray-600 hover:bg-gray-700 text-white',
-    success: 'bg-green-600 hover:bg-green-700 text-white',
-    danger: 'bg-red-600 hover:bg-red-700 text-white',
+    primary: 'bg-blue-600 hover:bg-blue-500 text-white focus-visible:ring-blue-500',
+    secondary: 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 focus-visible:ring-slate-500',
+    success: 'bg-emerald-600 hover:bg-emerald-500 text-white focus-visible:ring-emerald-500',
+    danger: 'bg-rose-600 hover:bg-rose-500 text-white focus-visible:ring-rose-500',
   };
   
   const sizeClasses = {

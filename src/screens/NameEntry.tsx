@@ -59,18 +59,18 @@ export function NameEntry() {
           </h2>
           
           <div className={`text-6xl font-bold ${
-            currentPlayerRole === 'spy' ? 'text-red-500' : 'text-blue-500'
+            currentPlayerRole === 'spy' ? 'text-rose-400' : 'text-blue-300'
           }`}>
             {currentPlayerRole === 'spy' ? t('nameEntry.spy') : t('nameEntry.resistance')}
           </div>
           
-          <p className="text-gray-300 max-w-sm">
+          <p className="text-white/70 max-w-sm">
             {t(`nameEntry.roleDescription.${currentPlayerRole}`)}
           </p>
           
           {currentPlayerRole === 'spy' && otherSpies.length > 0 && (
-            <div className="bg-gray-800 rounded-lg p-4">
-              <h3 className="text-lg font-semibold text-red-400 mb-2">
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+              <h3 className="text-lg font-semibold text-rose-300 mb-2">
                 {t('nameEntry.spyList')}
               </h3>
               <ul className="text-white space-y-1">
@@ -94,7 +94,7 @@ export function NameEntry() {
           <h1 className="text-3xl font-bold text-white mb-2">
             {t('nameEntry.title')}
           </h1>
-          <p className="text-gray-400">
+          <p className="text-white/60">
             {t('nameEntry.playerNumber', { number: totalPlayers - players.filter(p => p.name.startsWith('Player ')).length + 1 })}
           </p>
         </div>
@@ -102,7 +102,7 @@ export function NameEntry() {
         <Card>
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-3">
+              <label className="block text-sm font-medium text-white/70 mb-3">
                 {t('nameEntry.enterName')}
               </label>
               <input
@@ -110,7 +110,7 @@ export function NameEntry() {
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent min-h-[48px]"
+                className="input w-full"
                 placeholder={t('nameEntry.enterName')}
                 autoFocus
               />
@@ -129,7 +129,7 @@ export function NameEntry() {
 
         {players.length > 0 && (
           <div className="mt-6 text-center">
-            <p className="text-gray-400 text-sm">
+            <p className="text-white/60 text-sm">
               {players.filter(p => !p.name.startsWith('Player ')).length} / {totalPlayers} players added
             </p>
           </div>

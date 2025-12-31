@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGameStore } from './store/gameStore';
+import { useTranslation } from './hooks/useTranslation';
 import { Lobby } from './screens/Lobby';
 import { NameEntry } from './screens/NameEntry';
 import { Captain } from './screens/Captain';
@@ -12,6 +13,7 @@ import { Victory } from './screens/Victory';
 function App() {
   const [hasHydrated, setHasHydrated] = useState(useGameStore.persist.hasHydrated());
   const phase = useGameStore((state) => state.phase);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const unsubscribe = useGameStore.persist.onFinishHydration(() => {
@@ -25,8 +27,15 @@ function App() {
 
   if (!hasHydrated) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-4">
-        <div className="text-gray-400">Loading...</div>
+      <div className="app-shell">
+        <div className="app-shell__content min-h-screen flex items-center justify-center p-4 safe-area-padding">
+          <div className="card text-center space-y-4 w-full max-w-sm">
+            <div className="flex justify-center">
+              <div className="w-10 h-10 rounded-full border-2 border-white/20 border-t-white/80 animate-spin" />
+            </div>
+            <div className="text-white/70">{t('common.loading')}</div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -55,8 +64,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      {renderScreen()}
+    <div className="app-shell">
+      <div className="app-shell__content">{renderScreen()}</div>
     </div>
   );
 }

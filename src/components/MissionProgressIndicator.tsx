@@ -26,28 +26,28 @@ export function MissionProgressIndicator({
 
   const getStatusColor = (mission: Mission) => {
     if (mission.result === 'success') {
-      return 'bg-blue-500 text-white';
+      return 'bg-emerald-600 text-white';
     }
     if (mission.result === 'fail') {
-      return 'bg-red-500 text-white';
+      return 'bg-rose-600 text-white';
     }
     if (mission.number === currentMissionNumber) {
-      return 'bg-yellow-500 text-black';
+      return 'bg-amber-400 text-slate-950';
     }
-    return 'bg-gray-600 text-gray-300';
+    return 'bg-slate-800 text-white/70 border border-slate-700';
   };
 
   return (
     <div className="space-y-3">
-      <div className="flex justify-center space-x-2">
+      <div className="flex justify-center gap-3">
         {missions.slice(0, 5).map((mission) => (
           <div key={mission.number} className="text-center">
             <div
-              className={`${getSizeClasses()} rounded-full flex items-center justify-center font-bold ${getStatusColor(mission)}`}
+              className={`${getSizeClasses()} rounded-full flex items-center justify-center font-bold transition-colors ${getStatusColor(mission)}`}
             >
               {mission.number}
             </div>
-            <div className="text-xs text-gray-400 mt-1">
+            <div className="text-xs text-white/50 mt-1">
               {getTeamSize(mission.number, totalPlayers)}
             </div>
           </div>
@@ -55,4 +55,4 @@ export function MissionProgressIndicator({
       </div>
     </div>
   );
-} 
+}

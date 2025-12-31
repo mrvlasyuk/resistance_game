@@ -25,7 +25,7 @@ export function Lobby() {
           <h1 className="text-4xl font-bold text-white mb-2">
             {t('lobby.title')}
           </h1>
-          <p className="text-gray-400">
+          <p className="text-white/60">
             {t('lobby.subtitle')}
           </p>
         </div>
@@ -33,10 +33,10 @@ export function Lobby() {
         <Card>
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-3">
+              <label className="block text-sm font-medium text-white/70 mb-3">
                 {t('lobby.playerCount')}
               </label>
-              <p className="text-xs text-gray-500 mb-4">
+              <p className="text-xs text-white/40 mb-4">
                 {t('lobby.playerCountHelp')}
               </p>
               <div className="grid grid-cols-3 gap-2">
@@ -44,10 +44,10 @@ export function Lobby() {
                   <button
                     key={count}
                     onClick={() => setSelectedPlayers(count)}
-                    className={`p-3 rounded-lg font-semibold transition-colors duration-200 ${
+                    className={`p-3 rounded-lg font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 border ${
                       selectedPlayers === count
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                        ? 'bg-blue-600 text-white border-blue-700'
+                        : 'bg-slate-800 hover:bg-slate-700 text-white/80 border-slate-700'
                     }`}
                   >
                     {count}

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { PrivateScreen } from '../components/PrivateScreen';
+import { MissionProgressIndicator } from '../components/MissionProgressIndicator';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../hooks/useTranslation';
 
@@ -69,13 +70,13 @@ export function MissionVote() {
             <h2 className="text-2xl font-bold text-white mb-2">
               {t('missionVote.title')}
             </h2>
-            <p className="text-gray-400">
+            <p className="text-white/60">
               {t('missionVote.playerTurn', { playerName: currentPlayer.name })}
             </p>
           </div>
 
           <div>
-            <p className="text-lg text-gray-300 mb-6">
+            <p className="text-lg text-white/80 mb-6">
               {t('missionVote.chooseCard')}
             </p>
             
@@ -85,7 +86,7 @@ export function MissionVote() {
                 onClick={() => handleSelectCard('success')}
                 className={`mission-card ${
                   selectedCard === 'success' 
-                    ? 'mission-card-success ring-4 ring-green-300' 
+                    ? 'mission-card-success ring-4 ring-emerald-200/80 scale-[1.02]' 
                     : 'mission-card-success'
                 }`}
               >
@@ -98,7 +99,7 @@ export function MissionVote() {
                   onClick={() => handleSelectCard('fail')}
                   className={`mission-card ${
                     selectedCard === 'fail' 
-                      ? 'mission-card-fail ring-4 ring-red-300' 
+                      ? 'mission-card-fail ring-4 ring-rose-200/80 scale-[1.02]' 
                       : 'mission-card-fail'
                   }`}
                 >
@@ -110,7 +111,7 @@ export function MissionVote() {
 
           {selectedCard && (
             <div className="space-y-4">
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-white/60">
                 {t('missionVote.confirmChoice')}
               </p>
               <Button
@@ -134,26 +135,26 @@ export function MissionVote() {
           <h1 className="text-3xl font-bold text-white mb-2">
             {t('missionVote.title')}
           </h1>
-          <p className="text-gray-400">
+          <p className="text-white/60">
             {t('missionVote.subtitle')}
           </p>
         </div>
 
         <Card>
           <div className="text-center space-y-6">
-            <div className="bg-blue-600 rounded-lg p-6">
-              <div className="text-2xl font-bold text-white">
+            <div className="rounded-xl p-6 bg-amber-400 border border-amber-500">
+              <div className="text-2xl font-extrabold text-black tracking-tight">
                 {currentPlayer?.name}
               </div>
-              <p className="text-blue-200 mt-2">
+              <p className="text-black/70 mt-2">
                 {t('missionVote.playerTurn', { playerName: currentPlayer?.name || '' })}
               </p>
             </div>
 
-            <div className="text-sm text-gray-400">
-              <p>
-                {currentPlayerIndex + 1} / {teamPlayers.length} players
-              </p>
+            <div className="flex justify-center">
+              <span className="pill">
+                {t('missionVote.progress', { current: currentPlayerIndex + 1, total: teamPlayers.length })}
+              </span>
             </div>
 
             <Button
@@ -167,20 +168,20 @@ export function MissionVote() {
         </Card>
 
         {/* Team members list */}
-        <div className="mt-6">
-          <h3 className="text-lg font-semibold text-gray-300 mb-3">
-            Mission Team:
+        <Card className="mt-6 p-4">
+          <h3 className="text-lg font-semibold text-white/70 mb-3">
+            {t('missionVote.missionTeam')}
           </h3>
           <div className="flex flex-wrap gap-2">
             {teamPlayers.map((player, index) => (
               <div
                 key={player?.id}
-                className={`px-3 py-1 rounded-full text-sm ${
+                className={`px-3 py-1 rounded-full text-sm font-medium border ${
                   index === currentPlayerIndex
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-amber-400 text-black border-amber-500'
                     : index < currentPlayerIndex
-                    ? 'bg-green-600 text-white'
-                    : 'bg-gray-600 text-gray-300'
+                    ? 'bg-emerald-600 text-white border-emerald-700'
+                    : 'bg-slate-800 text-white/70 border-slate-700'
                 }`}
               >
                 {player?.name}
@@ -188,6 +189,13 @@ export function MissionVote() {
               </div>
             ))}
           </div>
+        </Card>
+
+        <div className="mt-6">
+          <MissionProgressIndicator
+            currentMissionNumber={currentMission.number}
+            size="small"
+          />
         </div>
       </div>
     </div>

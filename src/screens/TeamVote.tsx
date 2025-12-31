@@ -1,5 +1,6 @@
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
+import { MissionProgressIndicator } from '../components/MissionProgressIndicator';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../hooks/useTranslation';
 
@@ -30,30 +31,32 @@ export function TeamVote() {
           <h1 className="text-3xl font-bold text-white mb-2">
             {t('teamVote.title', { number: currentMission.number })}
           </h1>
-          <p className="text-gray-400">
+          <p className="text-white/60">
             {t('teamVote.subtitle')}
           </p>
           {rejectedTeamsCount > 0 && (
-            <p className="text-red-400 text-sm mt-2">
-              {t('teamSelect.rejectedTeamsCount', { count: rejectedTeamsCount })}
-            </p>
+            <div className="mt-3 flex justify-center">
+              <span className="pill pill-danger">
+                {t('teamSelect.rejectedTeamsCount', { count: rejectedTeamsCount })}
+              </span>
+            </div>
           )}
         </div>
 
         <Card>
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-gray-300 mb-3">
+              <h3 className="text-lg font-semibold text-white/70 mb-3">
                 {t('teamVote.proposedTeam')}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {teamPlayers.map((player) => (
-                  <div
+                  <span
                     key={player!.id}
-                    className="px-3 py-1 rounded-full text-sm bg-gray-700 text-gray-200"
+                    className="pill"
                   >
                     {player!.name}
-                  </div>
+                  </span>
                 ))}
               </div>
             </div>
@@ -79,8 +82,14 @@ export function TeamVote() {
             </div>
           </div>
         </Card>
+
+        <div className="mt-6">
+          <MissionProgressIndicator
+            currentMissionNumber={currentMission.number}
+            size="small"
+          />
+        </div>
       </div>
     </div>
   );
 }
-

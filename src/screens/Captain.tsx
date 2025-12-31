@@ -28,17 +28,17 @@ export function Captain() {
         <Card>
           <div className="text-center space-y-6">
             <div>
-              <h2 className="text-xl font-semibold text-gray-300 mb-4">
+              <h2 className="text-xl font-semibold text-white/70 mb-4">
                 {t('captain.currentCaptain')}
               </h2>
-              <div className="bg-blue-600 rounded-lg p-6">
+              <div className="rounded-xl p-6 bg-blue-600 border border-blue-700">
                 <div className="text-3xl font-bold text-white">
                   {currentCaptain?.name}
                 </div>
               </div>
             </div>
 
-            <p className="text-gray-400">
+            <p className="text-white/70">
               {t('captain.selectTeam')}
             </p>
 

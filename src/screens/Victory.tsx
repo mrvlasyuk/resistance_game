@@ -28,20 +28,18 @@ export function Victory() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-lg">
         <div className="text-center mb-8">
-          <div className={`text-6xl font-bold mb-4 ${
-            isResistanceWin ? 'text-blue-500' : 'text-red-500'
-          }`}>
-            🎉
+          <div className="text-6xl font-bold mb-4" aria-hidden="true">
+            {isResistanceWin ? '🛡️' : '🕵️'}
           </div>
           
           <h1 className={`text-4xl font-bold mb-2 ${
-            isResistanceWin ? 'text-blue-400' : 'text-red-400'
+            isResistanceWin ? 'text-blue-200' : 'text-rose-200'
           }`}>
             {isResistanceWin ? t('victory.resistanceWins') : t('victory.spiesWin')}
           </h1>
 
           {winReason === 'team-rejections' && (
-            <p className="text-gray-300">
+            <p className="text-white/70">
               {t('victory.spiesWinReasonTeamRejections')}
             </p>
           )}
@@ -50,25 +48,25 @@ export function Victory() {
         <Card>
           <div className="space-y-6">
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-gray-300 mb-4">
+              <h3 className="text-lg font-semibold text-white/70 mb-4">
                 {t('victory.finalScore')}
               </h3>
               
               <div className="flex justify-center space-x-8 mb-6">
                 <div className="text-center">
-                  <div className="text-blue-400 font-semibold">
+                  <div className="text-blue-300 font-semibold">
                     {t('missionResult.resistanceWins')}
                   </div>
-                  <div className="text-3xl font-bold text-blue-500">
+                  <div className="text-3xl font-bold text-blue-200">
                     {resistanceWins}
                   </div>
                 </div>
                 
                 <div className="text-center">
-                  <div className="text-red-400 font-semibold">
+                  <div className="text-rose-300 font-semibold">
                     {t('missionResult.spyWins')}
                   </div>
-                  <div className="text-3xl font-bold text-red-500">
+                  <div className="text-3xl font-bold text-rose-200">
                     {spyWins}
                   </div>
                 </div>
@@ -76,14 +74,14 @@ export function Victory() {
             </div>
 
             {/* Mission results summary */}
-            <div className="border-t border-gray-700 pt-6">
+            <div className="divider pt-6">
               <div className="mb-6">
                 <MissionProgressIndicator size="medium" />
               </div>
             </div>
 
             {/* Player roles reveal */}
-            <div className="border-t border-gray-700 pt-6 space-y-4">
+            <div className="divider pt-6 space-y-4">
               <div>
                 <h4 className="text-lg font-semibold text-blue-400 mb-2">
                   {t('nameEntry.resistance')}
@@ -92,7 +90,7 @@ export function Victory() {
                   {resistance.map((player) => (
                     <div
                       key={player.id}
-                      className="bg-blue-900/30 rounded-lg p-2 text-blue-300"
+                      className="rounded-xl p-3 bg-blue-950 border border-blue-800 text-blue-200"
                     >
                       {player.name}
                     </div>
@@ -101,14 +99,14 @@ export function Victory() {
               </div>
 
               <div>
-                <h4 className="text-lg font-semibold text-red-400 mb-2">
+                <h4 className="text-lg font-semibold text-rose-400 mb-2">
                   {t('nameEntry.spy')}
                 </h4>
                 <div className="space-y-1">
                   {spies.map((player) => (
                     <div
                       key={player.id}
-                      className="bg-red-900/30 rounded-lg p-2 text-red-300"
+                      className="rounded-xl p-3 bg-rose-950 border border-rose-800 text-rose-200"
                     >
                       {player.name}
                     </div>
@@ -130,8 +128,8 @@ export function Victory() {
 
         {/* Confetti effect could be added here */}
         <div className="mt-6 text-center">
-          <p className="text-gray-500 text-sm">
-            Thanks for playing The Resistance!
+          <p className="text-white/40 text-sm">
+            {t('victory.thanks')}
           </p>
         </div>
       </div>

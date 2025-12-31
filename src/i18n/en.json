@@ -62,6 +62,8 @@
     "title": "Mission Vote",
     "subtitle": "Pass the device to the next team member",
     "playerTurn": "{{playerName}}'s Turn",
+    "progress": "Player {{current}} / {{total}}",
+    "missionTeam": "Mission Team",
     "chooseCard": "Choose your mission card:",
     "success": "Success",
     "fail": "Fail",
@@ -86,7 +88,8 @@
     "spiesWin": "Spies Win!",
     "spiesWinReasonTeamRejections": "Spies win — 5 teams were rejected.",
     "finalScore": "Final Score",
-    "playAgain": "Play Again"
+    "playAgain": "Play Again",
+    "thanks": "Thanks for playing!"
   },
   "rules": {
     "playerRoles": "Player Roles",

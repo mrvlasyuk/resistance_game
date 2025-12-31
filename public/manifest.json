@@ -2,10 +2,11 @@
   "name": "The Resistance Game Helper",
   "short_name": "Resistance",
   "description": "Offline helper app for The Resistance board game",
-  "start_url": "/",
+  "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "background_color": "#111827",
-  "theme_color": "#1f2937",
+  "theme_color": "#070a13",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -19,20 +20,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshot-wide.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "screenshot-narrow.png", 
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow"
     }
   ],
   "categories": ["games", "entertainment", "utilities"],
