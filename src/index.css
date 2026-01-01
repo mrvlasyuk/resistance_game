@@ -98,7 +98,7 @@
   }
   
   .mission-card {
-    @apply w-28 h-36 rounded-xl border flex items-center justify-center text-sm font-bold cursor-pointer transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 active:translate-y-px;
+    @apply w-28 h-36 rounded-xl border flex items-center justify-center text-sm font-bold cursor-pointer transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 active:translate-y-px disabled:opacity-60 disabled:cursor-not-allowed;
   }
   
   .mission-card-success {

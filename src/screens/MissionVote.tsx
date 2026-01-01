@@ -33,6 +33,7 @@ export function MissionVote() {
   };
 
   const handleSelectCard = (card: 'success' | 'fail') => {
+    if (card === 'fail' && currentPlayer?.role !== 'spy') return;
     setSelectedCard(card);
   };
 
@@ -56,7 +57,7 @@ export function MissionVote() {
     setSelectedCard(null);
   };
 
-  const canShowFailCard = currentPlayer?.role === 'spy';
+  const canSelectFailCard = currentPlayer?.role === 'spy';
 
   if (showVoteScreen && currentPlayer) {
     return (
@@ -93,19 +94,18 @@ export function MissionVote() {
                 {t('missionVote.success')}
               </button>
 
-              {/* Fail Card - Only for spies */}
-              {canShowFailCard && (
-                <button
-                  onClick={() => handleSelectCard('fail')}
-                  className={`mission-card ${
-                    selectedCard === 'fail' 
-                      ? 'mission-card-fail ring-4 ring-rose-200/80 scale-[1.02]' 
-                      : 'mission-card-fail'
-                  }`}
-                >
-                  {t('missionVote.fail')}
-                </button>
-              )}
+              {/* Fail Card - shown for everyone, selectable only by spies */}
+              <button
+                disabled={!canSelectFailCard}
+                onClick={() => handleSelectCard('fail')}
+                className={`mission-card ${
+                  selectedCard === 'fail' 
+                    ? 'mission-card-fail ring-4 ring-rose-200/80 scale-[1.02]' 
+                    : 'mission-card-fail'
+                }`}
+              >
+                {t('missionVote.fail')}
+              </button>
             </div>
           </div>
 
