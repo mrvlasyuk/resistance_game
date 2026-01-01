@@ -52,13 +52,27 @@ describe('gameStore', () => {
     expect(result.current.captainIndex).toBeLessThan(5);
   });
 
-  it('addPlayer should replace placeholder names and start captain phase when complete', () => {
+  it('addPlayer should not immediately leave name-entry for the last player', () => {
     const { result } = renderHook(() => useGameStore());
 
     act(() => {
       result.current.setTotalPlayers(5);
       result.current.initializeRoles();
       ['Alice', 'Bob', 'Cara', 'Dan', 'Eve'].forEach(name => result.current.addPlayer(name));
+    });
+
+    expect(result.current.players.map(p => p.name)).toEqual(['Alice', 'Bob', 'Cara', 'Dan', 'Eve']);
+    expect(result.current.phase).toBe('name-entry');
+  });
+
+  it('completeNameEntryTurn should start captain phase after the last role reveal closes', () => {
+    const { result } = renderHook(() => useGameStore());
+
+    act(() => {
+      result.current.setTotalPlayers(5);
+      result.current.initializeRoles();
+      ['Alice', 'Bob', 'Cara', 'Dan', 'Eve'].forEach(name => result.current.addPlayer(name));
+      result.current.completeNameEntryTurn();
     });
 
     expect(result.current.players.map(p => p.name)).toEqual(['Alice', 'Bob', 'Cara', 'Dan', 'Eve']);

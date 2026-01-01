@@ -11,7 +11,7 @@ export function NameEntry() {
   const [showRole, setShowRole] = useState(false);
   const [currentPlayerRole, setCurrentPlayerRole] = useState<'spy' | 'resistance' | null>(null);
   const [currentPlayerId, setCurrentPlayerId] = useState<string | null>(null);
-  const { players, totalPlayers, addPlayer } = useGameStore();
+  const { players, totalPlayers, addPlayer, completeNameEntryTurn } = useGameStore();
   const { t } = useTranslation();
 
   // Find the next player that needs a name
@@ -37,6 +37,7 @@ export function NameEntry() {
     setShowRole(false);
     setCurrentPlayerRole(null);
     setCurrentPlayerId(null);
+    completeNameEntryTurn();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {

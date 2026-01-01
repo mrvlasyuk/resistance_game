@@ -14,6 +14,7 @@ interface GameStore extends GameState {
   // Actions
   setTotalPlayers: (count: number) => void;
   addPlayer: (name: string) => void;
+  completeNameEntryTurn: () => void;
   setPhase: (phase: GamePhase) => void;
   nextCaptain: () => void;
   selectTeam: (playerIds: string[]) => void;
@@ -99,13 +100,21 @@ export const useGameStore = create<GameStore>()(
               : player
           );
           
-          // Check if all players have real names
-          const allPlayersNamed = !updatedPlayers.some(p => p.name.startsWith('Player '));
-          
           set({
             players: updatedPlayers,
-            phase: allPlayersNamed ? 'captain' : 'name-entry',
+            // Keep `name-entry` so the last player can still see their role before the game starts.
+            phase: 'name-entry',
           });
+        }
+      },
+
+      completeNameEntryTurn: () => {
+        const state = get();
+        const allPlayersNamed = state.players.length > 0 && !state.players.some(p => p.name.startsWith('Player '));
+        if (allPlayersNamed) {
+          set({ phase: 'captain' });
+        } else {
+          set({ phase: 'name-entry' });
         }
       },
 
