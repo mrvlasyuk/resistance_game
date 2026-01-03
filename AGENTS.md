@@ -109,6 +109,13 @@ Known noisy output:
 - Some tests print React’s act() deprecation warning due to Testing Library internals; tests still pass.
 - `ts-jest` warns about `esModuleInterop` (not currently enabled).
 
+## CI / common pitfalls (avoid repeating)
+
+- **Always run a full build before pushing:** CI runs `npm run build` (`tsc && vite build`) and will fail on TypeScript diagnostics that Jest does not catch (e.g. `noUnusedLocals` / TS6133 “declared but never read”).
+  - Recommended pre-push: `npm test && npm run build`
+- **Why tests may pass while CI build fails:** Jest/ts-jest only type-checks/compiles files that are imported by tests; it does **not** necessarily run `tsc` across the entire project. A new file/component can have TS errors and still let `npm test` pass.
+- **TypeScript strictness is real:** `tsconfig.json` has `noUnusedLocals: true` and `noUnusedParameters: true`. Don’t leave unused selectors/vars in React components (especially after removing UI pieces).
+
 ## Translations / copy
 
 Translations are JSON in:
@@ -142,4 +149,3 @@ Typical flow:
 - Keep the game playable on a shared device passed around.
 - Prefer store-level enforcement for rules (UI should be friendly but not relied on for correctness).
 - If adding new features that change the game flow, add tests at the store/logic layer first, then UI tests as needed.
-
