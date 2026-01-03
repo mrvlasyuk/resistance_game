@@ -31,9 +31,6 @@ export function CaptainTimeline() {
   const rejectedTeamsCount = useGameStore((s) => s.rejectedTeamsCount);
   const missions = useGameStore((s) => s.missions);
 
-  const currentMissionNumber =
-    missions.find((m) => m.result === 'pending')?.number ?? 1;
-
   const currentCaptain = players[captainIndex];
 
   const nextCaptains = useMemo(() => {
@@ -61,9 +58,6 @@ export function CaptainTimeline() {
       <div className="mt-3 flex flex-wrap gap-2 items-center">
         <span className="pill">
           {t('captainTimeline.next')}: {nextCaptains.map((p) => p?.name).filter(Boolean).join(' → ')}
-        </span>
-        <span className="pill pill-warning">
-          {t('captainTimeline.mission')}: {currentMissionNumber}
         </span>
       </div>
 
@@ -98,4 +92,3 @@ export function CaptainTimeline() {
     </div>
   );
 }
-
