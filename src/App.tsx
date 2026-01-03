@@ -3,6 +3,7 @@ import { useGameStore } from './store/gameStore';
 import { useTranslation } from './hooks/useTranslation';
 import { Lobby } from './screens/Lobby';
 import { NameEntry } from './screens/NameEntry';
+import { SpyIntro } from './screens/SpyIntro';
 import { Captain } from './screens/Captain';
 import { TeamSelect } from './screens/TeamSelect';
 import { TeamVote } from './screens/TeamVote';
@@ -10,6 +11,7 @@ import { MissionVote } from './screens/MissionVote';
 import { MissionResult } from './screens/MissionResult';
 import { Victory } from './screens/Victory';
 import { NewGameButton } from './components/NewGameButton';
+import { BackButton } from './components/BackButton';
 
 function App() {
   const [hasHydrated, setHasHydrated] = useState(useGameStore.persist.hasHydrated());
@@ -47,6 +49,8 @@ function App() {
         return <Lobby />;
       case 'name-entry':
         return <NameEntry />;
+      case 'spy-intro':
+        return <SpyIntro />;
       case 'captain':
         return <Captain />;
       case 'team-select':
@@ -67,6 +71,7 @@ function App() {
   return (
     <div className="app-shell">
       <div className="app-shell__content">{renderScreen()}</div>
+      <BackButton />
       {phase !== 'lobby' && phase !== 'victory' && <NewGameButton />}
     </div>
   );

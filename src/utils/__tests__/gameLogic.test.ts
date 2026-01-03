@@ -8,7 +8,9 @@ import {
   getSpies,
   getResistance,
   SPY_COUNT,
-  TEAM_SIZES
+  TEAM_SIZES,
+  getFailThreshold,
+  getPublicMissionVoteCounts
 } from '../gameLogic';
 import type { Mission } from '../../types/game';
 
@@ -114,6 +116,74 @@ describe('gameLogic', () => {
       };
       
       expect(resolveMission(mission, 7)).toBe('fail');
+    });
+  });
+
+  describe('getFailThreshold', () => {
+    it('should be 1 for normal missions', () => {
+      expect(getFailThreshold(1, 5)).toBe(1);
+      expect(getFailThreshold(3, 10)).toBe(1);
+      expect(getFailThreshold(5, 7)).toBe(1);
+    });
+
+    it('should be 2 for mission 4 with 7+ players', () => {
+      expect(getFailThreshold(4, 7)).toBe(2);
+      expect(getFailThreshold(4, 10)).toBe(2);
+    });
+
+    it('should be 1 for mission 4 with <7 players', () => {
+      expect(getFailThreshold(4, 5)).toBe(1);
+      expect(getFailThreshold(4, 6)).toBe(1);
+    });
+  });
+
+  describe('getPublicMissionVoteCounts', () => {
+    it('should reveal all fail votes when mission succeeded', () => {
+      const mission: Mission = {
+        number: 4,
+        team: ['a', 'b', 'c', 'd'],
+        votes: [
+          { playerId: 'a', card: 'success' },
+          { playerId: 'b', card: 'fail' },
+          { playerId: 'c', card: 'success' },
+          { playerId: 'd', card: 'success' },
+        ],
+        result: 'success',
+      };
+
+      expect(getPublicMissionVoteCounts(mission, 7)).toEqual({ success: 3, fail: 1 });
+    });
+
+    it('should cap revealed fails to 1 for failed missions where threshold is 1', () => {
+      const mission: Mission = {
+        number: 1,
+        team: ['a', 'b', 'c'],
+        votes: [
+          { playerId: 'a', card: 'fail' },
+          { playerId: 'b', card: 'fail' },
+          { playerId: 'c', card: 'success' },
+        ],
+        result: 'fail',
+      };
+
+      expect(getPublicMissionVoteCounts(mission, 5)).toEqual({ success: 2, fail: 1 });
+    });
+
+    it('should cap revealed fails to 2 for mission 4 failed with 7+ players', () => {
+      const mission: Mission = {
+        number: 4,
+        team: ['a', 'b', 'c', 'd', 'e'],
+        votes: [
+          { playerId: 'a', card: 'fail' },
+          { playerId: 'b', card: 'fail' },
+          { playerId: 'c', card: 'fail' },
+          { playerId: 'd', card: 'success' },
+          { playerId: 'e', card: 'success' },
+        ],
+        result: 'fail',
+      };
+
+      expect(getPublicMissionVoteCounts(mission, 7)).toEqual({ success: 3, fail: 2 });
     });
   });
 

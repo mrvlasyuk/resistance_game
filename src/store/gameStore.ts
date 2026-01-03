@@ -11,11 +11,14 @@ import {
 } from '../utils/gameLogic';
 
 interface GameStore extends GameState {
+  history: GameState[];
   // Actions
   setTotalPlayers: (count: number) => void;
   addPlayer: (name: string) => void;
   completeNameEntryTurn: () => void;
   setPhase: (phase: GamePhase) => void;
+  canGoBack: () => boolean;
+  goBack: () => void;
   nextCaptain: () => void;
   selectTeam: (playerIds: string[]) => void;
   approveTeam: () => void;
@@ -45,10 +48,27 @@ const initialState: GameState = {
   winReason: null,
 };
 
+function snapshotState(state: GameStore): GameState {
+  return {
+    phase: state.phase,
+    totalPlayers: state.totalPlayers,
+    players: state.players,
+    captainIndex: state.captainIndex,
+    missions: state.missions,
+    currentPlayerIndex: state.currentPlayerIndex,
+    proposedTeam: state.proposedTeam,
+    language: state.language,
+    rejectedTeamsCount: state.rejectedTeamsCount,
+    winner: state.winner,
+    winReason: state.winReason,
+  };
+}
+
 export const useGameStore = create<GameStore>()(
   persist<GameStore, [], [], GameState>(
     (set, get) => ({
       ...initialState,
+      history: [],
 
       setTotalPlayers: (count: number) => {
         set({ totalPlayers: count });
@@ -84,6 +104,7 @@ export const useGameStore = create<GameStore>()(
 	          winner: null,
 	          winReason: null,
 	          currentPlayerIndex: 0,
+            history: [],
           phase: 'name-entry',
         });
       },
@@ -112,7 +133,7 @@ export const useGameStore = create<GameStore>()(
         const state = get();
         const allPlayersNamed = state.players.length > 0 && !state.players.some(p => p.name.startsWith('Player '));
         if (allPlayersNamed) {
-          set({ phase: 'captain' });
+          set({ phase: 'spy-intro' });
         } else {
           set({ phase: 'name-entry' });
         }
@@ -125,7 +146,51 @@ export const useGameStore = create<GameStore>()(
       },
 
       setPhase: (phase: GamePhase) => {
+        const state = get();
+        const isUndoableNav =
+          state.phase === 'captain' && phase === 'team-select';
+        if (isUndoableNav) {
+          set({ history: [...state.history, snapshotState(state)], phase });
+          return;
+        }
+
         set({ phase });
+      },
+
+      canGoBack: () => {
+        const state = get();
+        if (state.history.length === 0) return false;
+
+        // Never allow going back into role reveal / nickname entry flow
+        const last = state.history[state.history.length - 1];
+        if (last.phase === 'lobby' || last.phase === 'name-entry') return false;
+
+        // Allowed host phases
+        if (state.phase === 'captain' || state.phase === 'team-select' || state.phase === 'team-vote') {
+          return true;
+        }
+
+        // Allow undo right after approving a team, but only before any mission votes are cast
+        if (state.phase === 'mission-vote') {
+          const currentMission = state.missions.find(m => m.result === 'pending');
+          return !!currentMission && currentMission.votes.length === 0;
+        }
+
+        // Allow undo if the game ended by 5 team rejections (host misclick)
+        if (state.phase === 'victory' && state.winReason === 'team-rejections') {
+          return true;
+        }
+
+        return false;
+      },
+
+      goBack: () => {
+        const state = get();
+        if (!get().canGoBack()) return;
+
+        const last = state.history[state.history.length - 1];
+        const history = state.history.slice(0, -1);
+        set({ ...last, history });
       },
 
       nextCaptain: () => {
@@ -143,6 +208,7 @@ export const useGameStore = create<GameStore>()(
           if (playerIds.length !== requiredTeamSize) return;
 
           set({
+            history: [...state.history, snapshotState(state)],
             proposedTeam: playerIds,
             phase: 'team-vote',
           });
@@ -158,6 +224,7 @@ export const useGameStore = create<GameStore>()(
         if (!currentMission) return;
 
         set({
+          history: [...state.history, snapshotState(state)],
           missions: state.missions.map(mission =>
             mission.number === currentMission.number
               ? { ...mission, team: state.proposedTeam, votes: [] }
@@ -181,6 +248,7 @@ export const useGameStore = create<GameStore>()(
 
         if (newRejectedCount >= 5) {
           set({
+            history: [...state.history, snapshotState(state)],
             winner: 'spies',
             winReason: 'team-rejections',
             rejectedTeamsCount: newRejectedCount,
@@ -192,6 +260,7 @@ export const useGameStore = create<GameStore>()(
 
         const nextCaptainIndex = (state.captainIndex + 1) % totalPlayers;
         set({
+          history: [...state.history, snapshotState(state)],
           captainIndex: nextCaptainIndex,
           rejectedTeamsCount: newRejectedCount,
           proposedTeam: [],
@@ -269,6 +338,7 @@ export const useGameStore = create<GameStore>()(
             winner,
             winReason: winner ? 'missions' : null,
             phase: 'mission-result',
+            history: [],
           });
         }
       },
@@ -282,11 +352,12 @@ export const useGameStore = create<GameStore>()(
           currentPlayerIndex: 0,
           winner: null,
           winReason: null,
+          history: [],
         });
       },
 
       resetGame: () => {
-        set(initialState);
+        set({ ...initialState, history: [] });
       },
 
       setLanguage: (language: 'en' | 'ru') => {

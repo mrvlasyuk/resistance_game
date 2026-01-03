@@ -4,10 +4,11 @@ import { Button } from '../components/Button';
 import { MissionProgressIndicator } from '../components/MissionProgressIndicator';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../hooks/useTranslation';
+import { getPublicMissionVoteCounts } from '../utils/gameLogic';
 
 export function MissionResult() {
   const [showCards, setShowCards] = useState(false);
-  const { missions, nextMission, setPhase, winner } = useGameStore();
+  const { missions, nextMission, setPhase, winner, totalPlayers } = useGameStore();
   const { t } = useTranslation();
 
   // Находим последнюю завершенную миссию (с результатом и голосами)
@@ -17,8 +18,9 @@ export function MissionResult() {
 
   const missionNumber = currentMission.number;
   const isSuccess = currentMission.result === 'success';
-  const successVotes = currentMission.votes.filter(v => v.card === 'success').length;
-  const failVotes = currentMission.votes.filter(v => v.card === 'fail').length;
+  const publicCounts = getPublicMissionVoteCounts(currentMission, totalPlayers);
+  const successVotes = publicCounts.success;
+  const failVotes = publicCounts.fail;
 
   const completedMissions = missions.filter(m => m.result !== 'pending');
   const resistanceWins = completedMissions.filter(m => m.result === 'success').length;

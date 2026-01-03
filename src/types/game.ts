@@ -21,6 +21,7 @@ export interface Mission {
 export type GamePhase =
   | 'lobby'
   | 'name-entry'
+  | 'spy-intro'
   | 'captain'
   | 'team-select'
   | 'team-vote'

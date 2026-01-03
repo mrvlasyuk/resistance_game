@@ -9,6 +9,7 @@ import { useTranslation } from '../hooks/useTranslation';
 export function MissionVote() {
   const [selectedCard, setSelectedCard] = useState<'success' | 'fail' | null>(null);
   const [showVoteScreen, setShowVoteScreen] = useState(false);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const { 
     players, 
     missions, 
@@ -30,10 +31,15 @@ export function MissionVote() {
 
   const handleStartVote = () => {
     setShowVoteScreen(true);
+    setInfoMessage(null);
   };
 
   const handleSelectCard = (card: 'success' | 'fail') => {
-    if (card === 'fail' && currentPlayer?.role !== 'spy') return;
+    if (card === 'fail' && currentPlayer?.role !== 'spy') {
+      setInfoMessage(t('missionVote.resistanceCannotFail'));
+      return;
+    }
+    setInfoMessage(null);
     setSelectedCard(card);
   };
 
@@ -42,6 +48,7 @@ export function MissionVote() {
       submitVote(currentPlayer.id, selectedCard);
       setSelectedCard(null);
       setShowVoteScreen(false);
+      setInfoMessage(null);
       
       if (isLastPlayer) {
         // All players have voted, proceed to results
@@ -55,9 +62,8 @@ export function MissionVote() {
   const handleCloseVoteScreen = () => {
     setShowVoteScreen(false);
     setSelectedCard(null);
+    setInfoMessage(null);
   };
-
-  const canSelectFailCard = currentPlayer?.role === 'spy';
 
   if (showVoteScreen && currentPlayer) {
     return (
@@ -74,6 +80,12 @@ export function MissionVote() {
             <p className="text-white/60">
               {t('missionVote.playerTurn', { playerName: currentPlayer.name })}
             </p>
+          </div>
+
+          <div className="rounded-xl p-4 bg-amber-400 border border-amber-500">
+            <div className="text-2xl font-extrabold text-black tracking-tight">
+              {currentPlayer.name}
+            </div>
           </div>
 
           <div>
@@ -96,7 +108,6 @@ export function MissionVote() {
 
               {/* Fail Card - shown for everyone, selectable only by spies */}
               <button
-                disabled={!canSelectFailCard}
                 onClick={() => handleSelectCard('fail')}
                 className={`mission-card ${
                   selectedCard === 'fail' 
@@ -108,6 +119,14 @@ export function MissionVote() {
               </button>
             </div>
           </div>
+
+          {infoMessage && (
+            <div className="flex justify-center">
+              <div className="pill pill-warning">
+                {infoMessage}
+              </div>
+            </div>
+          )}
 
           {selectedCard && (
             <div className="space-y-4">

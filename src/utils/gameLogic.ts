@@ -26,6 +26,15 @@ export const SPY_COUNT: Record<number, number> = {
 };
 
 /**
+ * Fail votes required to fail a mission based on mission number and player count
+ */
+export function getFailThreshold(missionNumber: number, totalPlayers: number): 1 | 2 {
+  // Special rule: 4th mission with 7+ players requires 2 fail votes to fail
+  if (missionNumber === 4 && totalPlayers >= 7) return 2;
+  return 1;
+}
+
+/**
  * Shuffle array using Fisher-Yates algorithm
  */
 function shuffleArray<T>(array: T[]): T[] {
@@ -83,14 +92,30 @@ export function getResistance(players: Player[]): Player[] {
  */
 export function resolveMission(mission: Mission, totalPlayers: number): 'success' | 'fail' {
   const failVotes = mission.votes.filter(vote => vote.card === 'fail').length;
-  
-  // Special rule: 4th mission with 7+ players requires 2 fail votes to fail
-  if (mission.number === 4 && totalPlayers >= 7) {
-    return failVotes >= 2 ? 'fail' : 'success';
+  const threshold = getFailThreshold(mission.number, totalPlayers);
+  return failVotes >= threshold ? 'fail' : 'success';
+}
+
+/**
+ * Public mission card counts to reveal.
+ * If the mission failed, reveal only the minimum number of fail cards required,
+ * and treat any extra fail votes as success for the reveal to avoid leaking spy count.
+ */
+export function getPublicMissionVoteCounts(
+  mission: Mission,
+  totalPlayers: number
+): { success: number; fail: number } {
+  const successVotes = mission.votes.filter(vote => vote.card === 'success').length;
+  const failVotes = mission.votes.filter(vote => vote.card === 'fail').length;
+
+  if (mission.result === 'fail') {
+    const threshold = getFailThreshold(mission.number, totalPlayers);
+    const revealedFail = Math.min(failVotes, threshold);
+    const revealedSuccess = Math.max(0, mission.team.length - revealedFail);
+    return { success: revealedSuccess, fail: revealedFail };
   }
-  
-  // Normal rule: any fail vote fails the mission
-  return failVotes > 0 ? 'fail' : 'success';
+
+  return { success: successVotes, fail: failVotes };
 }
 
 /**

@@ -34,6 +34,14 @@
       "spy": "You are infiltrating the resistance. You can vote SUCCESS or FAIL on missions."
     }
   },
+  "spyIntro": {
+    "title": "Host Reminder",
+    "subtitle": "Spy introduction before the game starts",
+    "step1": "Ask everyone to close their eyes — the city falls asleep.",
+    "step2": "Spies open their eyes and recognize each other.",
+    "step3": "Spies close their eyes, then everyone opens their eyes.",
+    "continue": "Continue"
+  },
   "captain": {
     "title": "Mission {{number}}",
     "currentCaptain": "Current Captain",
@@ -71,6 +79,7 @@
     "chooseCard": "Choose your mission card:",
     "success": "Success",
     "fail": "Fail",
+    "resistanceCannotFail": "Resistance can only vote Success.",
     "confirmChoice": "Confirm your choice",
     "passDevice": "Pass device to next player",
     "allVoted": "All players have voted"

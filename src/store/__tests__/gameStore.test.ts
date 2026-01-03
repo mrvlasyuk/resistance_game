@@ -76,7 +76,7 @@ describe('gameStore', () => {
     });
 
     expect(result.current.players.map(p => p.name)).toEqual(['Alice', 'Bob', 'Cara', 'Dan', 'Eve']);
-    expect(result.current.phase).toBe('captain');
+    expect(result.current.phase).toBe('spy-intro');
   });
 
   it('selectTeam should store proposedTeam and move to team-vote', () => {

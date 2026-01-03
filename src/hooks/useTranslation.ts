@@ -7,8 +7,8 @@ type TranslationKey = string;
 type TranslationParams = Record<string, string | number>;
 
 const translations = {
-  en: enTranslations,
-  ru: ruTranslations,
+  en: (enTranslations as any)?.default ?? enTranslations,
+  ru: (ruTranslations as any)?.default ?? ruTranslations,
 };
 
 export function useTranslation() {
