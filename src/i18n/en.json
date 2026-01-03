@@ -18,7 +18,18 @@
     "playerCount": "Number of Players",
     "playerCountHelp": "Select between 5-10 players",
     "startGame": "Start Game",
-    "languageSwitch": "Switch to Russian"
+    "languageSwitch": "Switch to Russian",
+    "showHowToPlay": "How to play (tweet thread)",
+    "hideHowToPlay": "Hide rules",
+    "tweets": {
+      "1": "🧵 1/7 You are The Resistance. Spies are hidden among you. Win 3 missions to win the game.",
+      "2": "2/7 Each mission: a Captain proposes a team. Everyone votes to approve/reject. 5 rejects in a row = Spies win.",
+      "3": "3/7 Approved team goes on the mission. Each team member secretly plays a card: SUCCESS or FAIL (Spies only).",
+      "4": "4/7 Mission result: normally 1 FAIL fails the mission. Special rule: Mission 4 with 7+ players needs 2 FAILs.",
+      "5": "5/7 After each mission, Captain passes to the next player in order. Track who proposed what.",
+      "6": "6/7 Resistance: always play SUCCESS. Spies: coordinate quietly (or don’t) to sabotage missions.",
+      "7": "7/7 First side to 3 mission wins takes the game. Good luck, and don’t get caught."
+    }
   },
   "nameEntry": {
     "title": "Player Setup",

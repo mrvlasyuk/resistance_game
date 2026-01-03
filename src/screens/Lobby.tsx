@@ -6,6 +6,7 @@ import { useTranslation } from '../hooks/useTranslation';
 
 export function Lobby() {
   const [selectedPlayers, setSelectedPlayers] = useState(5);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const { setTotalPlayers, initializeRoles, setLanguage, language } = useGameStore();
   const { t } = useTranslation();
 
@@ -71,6 +72,39 @@ export function Lobby() {
             >
               {t('lobby.languageSwitch')}
             </Button>
+          </div>
+        </Card>
+
+        <Card className="mt-6">
+          <div className="space-y-4">
+            <button
+              type="button"
+              onClick={() => setShowHowToPlay((prev) => !prev)}
+              aria-expanded={showHowToPlay}
+              className="w-full flex items-center justify-between gap-3 text-left rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 px-4 py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+            >
+              <span>{t(showHowToPlay ? 'lobby.hideHowToPlay' : 'lobby.showHowToPlay')}</span>
+              <span className="text-white/60">{showHowToPlay ? '▴' : '▾'}</span>
+            </button>
+
+            {showHowToPlay && (
+              <div className="space-y-3">
+                {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+                  <div
+                    key={n}
+                    className="rounded-xl border border-slate-800 bg-slate-900 p-4"
+                  >
+                    <div className="flex items-center justify-between text-xs text-white/50 mb-2">
+                      <span>@resistance_rules</span>
+                      <span>•</span>
+                    </div>
+                    <div className="text-sm text-white/80 leading-relaxed">
+                      {t(`lobby.tweets.${n}`)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </Card>
       </div>
