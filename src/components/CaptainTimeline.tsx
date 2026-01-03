@@ -29,7 +29,6 @@ export function CaptainTimeline() {
   const captainIndex = useGameStore((s) => s.captainIndex);
   const captainTurns = useGameStore((s) => s.captainTurns);
   const rejectedTeamsCount = useGameStore((s) => s.rejectedTeamsCount);
-  const missions = useGameStore((s) => s.missions);
 
   const currentCaptain = players[captainIndex];
 
