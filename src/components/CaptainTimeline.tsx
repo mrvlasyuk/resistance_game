@@ -69,7 +69,7 @@ export function CaptainTimeline() {
               const captainName =
                 players.find((p) => p.id === turn.captainId)?.name ?? '—';
               const label = turn.revealed
-                ? `${statusEmoji(turn.status)} ${captainName} ${cardsEmoji(turn.revealed.success, turn.revealed.fail)}`
+                ? `${captainName} ${cardsEmoji(turn.revealed.success, turn.revealed.fail)}`
                 : `${statusEmoji(turn.status)} ${captainName}`;
 
               return (
@@ -80,8 +80,9 @@ export function CaptainTimeline() {
                 >
                   <div className="font-semibold">{captainName}</div>
                   <div className="text-white/60">
-                    {statusEmoji(turn.status)}{' '}
-                    {turn.revealed ? cardsEmoji(turn.revealed.success, turn.revealed.fail) : ''}
+                    {turn.revealed
+                      ? cardsEmoji(turn.revealed.success, turn.revealed.fail)
+                      : statusEmoji(turn.status)}
                   </div>
                 </div>
               );
