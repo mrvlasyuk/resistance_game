@@ -14,7 +14,7 @@
   },
   "lobby": {
     "title": "The Resistance",
-    "subtitle": "Secret Helper Device",
+    "subtitle": "Host Helper",
     "playerCount": "Number of Players",
     "playerCountHelp": "Select between 5-10 players",
     "startGame": "Start Game",
@@ -42,8 +42,8 @@
     "spyList": "Other Spies:",
     "autoClose": "Screen will clear in {{seconds}}s",
     "roleDescription": {
-      "resistance": "You are fighting against the spies. Vote SUCCESS on missions.",
-      "spy": "You are infiltrating the resistance. You can vote SUCCESS or FAIL on missions."
+      "resistance": "You are fighting against the spies. Always play SUCCESS on missions.",
+      "spy": "You are infiltrating the resistance. You may play SUCCESS or FAIL on missions."
     }
   },
   "spyIntro": {
