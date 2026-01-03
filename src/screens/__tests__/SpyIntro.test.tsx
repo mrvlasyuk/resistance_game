@@ -24,13 +24,14 @@ describe('SpyIntro screen', () => {
   beforeEach(() => {
     localStorage.clear();
     act(() => {
+      useGameStore.setState({ savedNames: [] } as any);
       useGameStore.getState().resetGame();
     });
   });
 
   it('shows reminder and continues to captain', () => {
     act(() => {
-      useGameStore.setState({ phase: 'spy-intro' });
+      useGameStore.setState({ phase: 'spy-intro', captainTurns: [] } as any);
     });
 
     render(<SpyIntro />);
@@ -44,4 +45,3 @@ describe('SpyIntro screen', () => {
     expect(useGameStore.getState().phase).toBe('captain');
   });
 });
-

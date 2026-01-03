@@ -23,6 +23,7 @@
   "nameEntry": {
     "title": "Настройка игроков",
     "enterName": "Введите ваше имя",
+    "suggestions": "Подсказки",
     "playerNumber": "Игрок {{number}}",
     "yourRole": "Ваша роль",
     "resistance": "Сопротивление",
@@ -69,6 +70,13 @@
     "continue": "Продолжить",
     "playerTurn": "Голос {{playerName}}",
     "chooseVote": "Утвердить или отклонить предложенную команду:"
+  },
+  "captainTimeline": {
+    "captain": "Капитан",
+    "remaining": "Отклонений осталось",
+    "next": "Следующие капитаны",
+    "mission": "Миссия",
+    "history": "История капитанов"
   },
   "missionVote": {
     "title": "Голосование в миссии",

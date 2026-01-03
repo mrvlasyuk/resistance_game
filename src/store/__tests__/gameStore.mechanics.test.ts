@@ -69,6 +69,7 @@ describe('gameStore mechanics', () => {
     uuidCounter = 0;
     localStorage.clear();
     act(() => {
+      useGameStore.setState({ savedNames: [] } as any);
       useGameStore.getState().resetGame();
     });
   });
@@ -359,16 +360,18 @@ describe('gameStore mechanics', () => {
     expect(useGameStore.getState().missions[0].votes).toHaveLength(1);
   });
 
-  it('goBack should never allow returning to name-entry (role reveal)', () => {
-    const snapshot: GameState = {
-      phase: 'captain',
-      totalPlayers: 5,
-      players: [],
-      captainIndex: 0,
-      missions: [],
-      currentPlayerIndex: 0,
-      proposedTeam: [],
-      language: 'en',
+	  it('goBack should never allow returning to name-entry (role reveal)', () => {
+	    const snapshot: GameState = {
+	      phase: 'captain',
+	      totalPlayers: 5,
+	      players: [],
+	      savedNames: [],
+	      captainTurns: [],
+	      captainIndex: 0,
+	      missions: [],
+	      currentPlayerIndex: 0,
+	      proposedTeam: [],
+	      language: 'en',
       rejectedTeamsCount: 0,
       winner: null,
       winReason: null,

@@ -11,7 +11,7 @@ export function NameEntry() {
   const [showRole, setShowRole] = useState(false);
   const [currentPlayerRole, setCurrentPlayerRole] = useState<'spy' | 'resistance' | null>(null);
   const [currentPlayerId, setCurrentPlayerId] = useState<string | null>(null);
-  const { players, totalPlayers, addPlayer, completeNameEntryTurn } = useGameStore();
+  const { players, totalPlayers, savedNames, addPlayer, completeNameEntryTurn } = useGameStore();
   const { t } = useTranslation();
 
   // Find the next player that needs a name
@@ -45,6 +45,14 @@ export function NameEntry() {
       handleSubmitName();
     }
   };
+
+  const namePrefix = playerName.trim().toLowerCase();
+  const suggestions =
+    namePrefix.length >= 2
+      ? savedNames
+          .filter((name) => name.toLowerCase().startsWith(namePrefix))
+          .slice(0, 6)
+      : [];
 
   if (showRole && currentPlayerRole) {
     const spies = getSpies(players);
@@ -116,6 +124,26 @@ export function NameEntry() {
                 autoFocus
               />
             </div>
+
+            {suggestions.length > 0 && (
+              <div className="space-y-2">
+                <div className="text-sm font-medium text-white/60">
+                  {t('nameEntry.suggestions')}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {suggestions.map((suggestion) => (
+                    <button
+                      key={suggestion}
+                      type="button"
+                      onClick={() => setPlayerName(suggestion)}
+                      className="pill hover:bg-slate-700"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <Button
               onClick={handleSubmitName}

@@ -16,6 +16,7 @@ describe('gameStore', () => {
     localStorage.clear();
 
     act(() => {
+      useGameStore.setState({ savedNames: [] } as any);
       useGameStore.getState().resetGame();
     });
   });
@@ -26,6 +27,8 @@ describe('gameStore', () => {
     expect(result.current.phase).toBe('lobby');
     expect(result.current.totalPlayers).toBe(5);
     expect(result.current.players).toEqual([]);
+    expect(result.current.savedNames).toEqual([]);
+    expect(result.current.captainTurns).toEqual([]);
     expect(result.current.captainIndex).toBe(0);
     expect(result.current.missions).toEqual([]);
     expect(result.current.currentPlayerIndex).toBe(0);
@@ -34,6 +37,7 @@ describe('gameStore', () => {
     expect(result.current.winner).toBeNull();
     expect(result.current.winReason).toBeNull();
     expect(result.current.language).toBe('en');
+    expect(result.current.history).toEqual([]);
   });
 
   it('initializeRoles should create players and missions and enter name-entry', () => {
@@ -124,6 +128,7 @@ describe('gameStore', () => {
     expect(result.current.proposedTeam).toEqual([]);
     expect(result.current.missions[0].team).toEqual(proposed);
     expect(result.current.rejectedTeamsCount).toBe(0);
+    expect(result.current.captainTurns).toHaveLength(1);
   });
 
   it('rejectTeam should increment counter and pass captain', () => {
@@ -152,6 +157,7 @@ describe('gameStore', () => {
     expect(result.current.captainIndex).toBe(1);
     expect(result.current.proposedTeam).toEqual([]);
     expect(result.current.missions[0].team).toEqual([]);
+    expect(result.current.captainTurns).toHaveLength(1);
   });
 
   it('five rejected teams should immediately end the game with spies victory', () => {
@@ -226,5 +232,30 @@ describe('gameStore', () => {
     expect(mission.votes).toHaveLength(2);
     expect(mission.votes.find(v => v.playerId === spyId)?.card).toBe('fail');
     expect(mission.votes.find(v => v.playerId === resistanceId)?.card).toBe('success');
+  });
+
+  it('should save entered player names for future suggestions and keep them on resetGame', () => {
+    const { result } = renderHook(() => useGameStore());
+
+    act(() => {
+      result.current.setTotalPlayers(5);
+      result.current.initializeRoles();
+      result.current.addPlayer('Alice');
+      result.current.addPlayer('Bob');
+    });
+
+    expect(useGameStore.getState().savedNames).toEqual(['Bob', 'Alice']);
+
+    const persistedRaw = localStorage.getItem('resistance-game-state');
+    expect(persistedRaw).toBeTruthy();
+    const persisted = JSON.parse(persistedRaw as string);
+    expect(persisted.state.savedNames).toEqual(['Bob', 'Alice']);
+
+    act(() => {
+      result.current.resetGame();
+    });
+
+    expect(useGameStore.getState().players).toEqual([]);
+    expect(useGameStore.getState().savedNames).toEqual(['Bob', 'Alice']);
   });
 });

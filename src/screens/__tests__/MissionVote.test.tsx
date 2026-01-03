@@ -51,6 +51,8 @@ function seedMissionVoteState(params: {
       phase: 'mission-vote',
       totalPlayers: params.totalPlayers ?? params.players.length,
       players: params.players,
+      savedNames: [],
+      captainTurns: [],
       missions: [makeMission(1), makeMission(2), makeMission(3), makeMission(4), makeMission(5)],
       currentPlayerIndex: params.currentPlayerIndex ?? 0,
       proposedTeam: [],
@@ -67,6 +69,7 @@ describe('MissionVote screen', () => {
   beforeEach(() => {
     localStorage.clear();
     act(() => {
+      useGameStore.setState({ savedNames: [] } as any);
       useGameStore.getState().resetGame();
     });
   });

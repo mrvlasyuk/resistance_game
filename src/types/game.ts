@@ -18,6 +18,22 @@ export interface Mission {
   result: 'pending' | 'success' | 'fail';
 }
 
+export type CaptainTurnStatus =
+  | 'proposed'
+  | 'rejected'
+  | 'approved'
+  | 'mission-success'
+  | 'mission-fail';
+
+export interface CaptainTurn {
+  id: string;
+  missionNumber: 1 | 2 | 3 | 4 | 5;
+  captainId: string;
+  team: string[];
+  status: CaptainTurnStatus;
+  revealed?: { success: number; fail: number };
+}
+
 export type GamePhase =
   | 'lobby'
   | 'name-entry'
@@ -33,6 +49,8 @@ export interface GameState {
   phase: GamePhase;
   totalPlayers: number;
   players: Player[];
+  savedNames: string[]; // persisted nickname suggestions
+  captainTurns: CaptainTurn[];
   captainIndex: number;
   missions: Mission[];
   currentPlayerIndex: number; // для голосования в миссии

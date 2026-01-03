@@ -45,6 +45,8 @@ function seedMissionResult(params: {
       phase: 'mission-result',
       totalPlayers: params.totalPlayers,
       players: [],
+      savedNames: [],
+      captainTurns: [],
       missions: [makeMission(1), makeMission(2), makeMission(3), makeMission(4), makeMission(5)],
       captainIndex: 0,
       currentPlayerIndex: 0,
@@ -62,6 +64,7 @@ describe('MissionResult screen', () => {
     localStorage.clear();
     jest.useFakeTimers();
     act(() => {
+      useGameStore.setState({ savedNames: [] } as any);
       useGameStore.getState().resetGame();
     });
   });
@@ -143,4 +146,3 @@ describe('MissionResult screen', () => {
     expect(screen.getAllByText('Success')).toHaveLength(3);
   });
 });
-

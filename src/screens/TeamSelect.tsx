@@ -5,6 +5,7 @@ import { MissionProgressIndicator } from '../components/MissionProgressIndicator
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../hooks/useTranslation';
 import { getTeamSize } from '../utils/gameLogic';
+import { CaptainTimeline } from '../components/CaptainTimeline';
 
 export function TeamSelect() {
   const [selectedPlayers, setSelectedPlayers] = useState<string[]>([]);
@@ -112,6 +113,8 @@ export function TeamSelect() {
             size="small"
           />
         </div>
+
+        <CaptainTimeline />
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import type { GameState, GamePhase } from '../types/game';
+import type { CaptainTurn, GameState, GamePhase } from '../types/game';
 import { 
 	  createPlayer, 
 	  createMission, 
 	  dealRoles, 
 	  resolveMission, 
 	  checkVictory,
-	  getTeamSize
+	  getTeamSize,
+    getPublicMissionVoteCounts
 } from '../utils/gameLogic';
 
 interface GameStore extends GameState {
@@ -15,6 +16,7 @@ interface GameStore extends GameState {
   // Actions
   setTotalPlayers: (count: number) => void;
   addPlayer: (name: string) => void;
+  addSavedName: (name: string) => void;
   completeNameEntryTurn: () => void;
   setPhase: (phase: GamePhase) => void;
   canGoBack: () => boolean;
@@ -38,6 +40,8 @@ const initialState: GameState = {
   phase: 'lobby',
   totalPlayers: 5,
   players: [],
+  savedNames: [],
+  captainTurns: [],
   captainIndex: 0,
   missions: [],
   currentPlayerIndex: 0,
@@ -53,6 +57,8 @@ function snapshotState(state: GameStore): GameState {
     phase: state.phase,
     totalPlayers: state.totalPlayers,
     players: state.players,
+    savedNames: state.savedNames,
+    captainTurns: state.captainTurns,
     captainIndex: state.captainIndex,
     missions: state.missions,
     currentPlayerIndex: state.currentPlayerIndex,
@@ -105,19 +111,41 @@ export const useGameStore = create<GameStore>()(
 	          winReason: null,
 	          currentPlayerIndex: 0,
             history: [],
+            savedNames: state.savedNames,
+            captainTurns: [],
           phase: 'name-entry',
         });
       },
 
+      addSavedName: (name: string) => {
+        const trimmed = name.trim();
+        if (!trimmed) return;
+        if (/^Player\s+\d+$/i.test(trimmed)) return;
+
+        const state = get();
+        const existingIndex = state.savedNames.findIndex(
+          (n) => n.toLowerCase() === trimmed.toLowerCase()
+        );
+
+        const next = existingIndex === -1
+          ? [trimmed, ...state.savedNames]
+          : [state.savedNames[existingIndex], ...state.savedNames.filter((_, i) => i !== existingIndex)];
+
+        set({ savedNames: next.slice(0, 200) });
+      },
+
       addPlayer: (name: string) => {
         const state = get();
+        const trimmed = name.trim();
+        if (!trimmed) return;
+
         const currentPlayerIndex = state.players.findIndex(p => p.name.startsWith('Player '));
         
         if (currentPlayerIndex !== -1) {
           // Update the placeholder player with the real name
           const updatedPlayers = state.players.map((player, index) => 
             index === currentPlayerIndex 
-              ? { ...player, name }
+              ? { ...player, name: trimmed }
               : player
           );
           
@@ -126,6 +154,8 @@ export const useGameStore = create<GameStore>()(
             // Keep `name-entry` so the last player can still see their role before the game starts.
             phase: 'name-entry',
           });
+
+          get().addSavedName(trimmed);
         }
       },
 
@@ -207,9 +237,21 @@ export const useGameStore = create<GameStore>()(
           const requiredTeamSize = getTeamSize(currentMission.number, state.totalPlayers);
           if (playerIds.length !== requiredTeamSize) return;
 
+          const captainId = state.players[state.captainIndex]?.id;
+          const newTurn: CaptainTurn | null = captainId
+            ? {
+                id: `${currentMission.number}-${state.captainIndex}-${Date.now()}`,
+                missionNumber: currentMission.number,
+                captainId,
+                team: playerIds,
+                status: 'proposed',
+              }
+            : null;
+
           set({
             history: [...state.history, snapshotState(state)],
             proposedTeam: playerIds,
+            captainTurns: newTurn ? [...state.captainTurns, newTurn] : state.captainTurns,
             phase: 'team-vote',
           });
         }
@@ -223,6 +265,15 @@ export const useGameStore = create<GameStore>()(
         const currentMission = state.missions.find(m => m.result === 'pending');
         if (!currentMission) return;
 
+        const updatedTurns = [...state.captainTurns];
+        for (let i = updatedTurns.length - 1; i >= 0; i--) {
+          const turn = updatedTurns[i];
+          if (turn.missionNumber === currentMission.number && turn.status === 'proposed') {
+            updatedTurns[i] = { ...turn, status: 'approved' };
+            break;
+          }
+        }
+
         set({
           history: [...state.history, snapshotState(state)],
           missions: state.missions.map(mission =>
@@ -230,6 +281,7 @@ export const useGameStore = create<GameStore>()(
               ? { ...mission, team: state.proposedTeam, votes: [] }
               : mission
           ),
+          captainTurns: updatedTurns,
           proposedTeam: [],
           phase: 'mission-vote',
           currentPlayerIndex: 0,
@@ -246,6 +298,15 @@ export const useGameStore = create<GameStore>()(
 
         const newRejectedCount = state.rejectedTeamsCount + 1;
 
+        const updatedTurns = [...state.captainTurns];
+        for (let i = updatedTurns.length - 1; i >= 0; i--) {
+          const turn = updatedTurns[i];
+          if (turn.status === 'proposed') {
+            updatedTurns[i] = { ...turn, status: 'rejected' };
+            break;
+          }
+        }
+
         if (newRejectedCount >= 5) {
           set({
             history: [...state.history, snapshotState(state)],
@@ -253,6 +314,7 @@ export const useGameStore = create<GameStore>()(
             winReason: 'team-rejections',
             rejectedTeamsCount: newRejectedCount,
             proposedTeam: [],
+            captainTurns: updatedTurns,
             phase: 'victory',
           });
           return;
@@ -264,6 +326,7 @@ export const useGameStore = create<GameStore>()(
           captainIndex: nextCaptainIndex,
           rejectedTeamsCount: newRejectedCount,
           proposedTeam: [],
+          captainTurns: updatedTurns,
           phase: 'captain',
         });
       },
@@ -332,6 +395,23 @@ export const useGameStore = create<GameStore>()(
           );
           
           const winner = checkVictory(updatedMissions);
+
+          const publicCounts = getPublicMissionVoteCounts(
+            { ...currentMission, result },
+            state.totalPlayers
+          );
+          const updatedTurns = [...state.captainTurns];
+          for (let i = updatedTurns.length - 1; i >= 0; i--) {
+            const turn = updatedTurns[i];
+            if (turn.missionNumber === currentMission.number && turn.status === 'approved') {
+              updatedTurns[i] = {
+                ...turn,
+                status: result === 'success' ? 'mission-success' : 'mission-fail',
+                revealed: publicCounts,
+              };
+              break;
+            }
+          }
           
           set({
             missions: updatedMissions,
@@ -339,6 +419,7 @@ export const useGameStore = create<GameStore>()(
             winReason: winner ? 'missions' : null,
             phase: 'mission-result',
             history: [],
+            captainTurns: updatedTurns,
           });
         }
       },
@@ -357,7 +438,8 @@ export const useGameStore = create<GameStore>()(
       },
 
       resetGame: () => {
-        set({ ...initialState, history: [] });
+        const state = get();
+        set({ ...initialState, history: [], savedNames: state.savedNames, captainTurns: [] });
       },
 
       setLanguage: (language: 'en' | 'ru') => {
@@ -372,6 +454,8 @@ export const useGameStore = create<GameStore>()(
         phase: state.phase,
         totalPlayers: state.totalPlayers,
         players: state.players,
+        savedNames: state.savedNames,
+        captainTurns: state.captainTurns,
         captainIndex: state.captainIndex,
         missions: state.missions,
         currentPlayerIndex: state.currentPlayerIndex,
@@ -408,6 +492,8 @@ export const useGameStore = create<GameStore>()(
           rejectedTeamsCount: rest.rejectedTeamsCount ?? 0,
           winner: rest.winner ?? null,
           winReason: rest.winReason ?? null,
+          savedNames: rest.savedNames ?? [],
+          captainTurns: rest.captainTurns ?? [],
         } as GameState;
       },
     }

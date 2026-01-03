@@ -23,6 +23,7 @@
   "nameEntry": {
     "title": "Player Setup",
     "enterName": "Enter your name",
+    "suggestions": "Suggestions",
     "playerNumber": "Player {{number}}",
     "yourRole": "Your Role",
     "resistance": "Resistance",
@@ -69,6 +70,13 @@
     "continue": "Continue",
     "playerTurn": "{{playerName}}'s Vote",
     "chooseVote": "Approve or reject the proposed team:"
+  },
+  "captainTimeline": {
+    "captain": "Captain",
+    "remaining": "Rejects left",
+    "next": "Next captains",
+    "mission": "Mission",
+    "history": "Captain history"
   },
   "missionVote": {
     "title": "Mission Vote",

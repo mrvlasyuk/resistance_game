@@ -3,6 +3,7 @@ import { Button } from '../components/Button';
 import { MissionProgressIndicator } from '../components/MissionProgressIndicator';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../hooks/useTranslation';
+import { CaptainTimeline } from '../components/CaptainTimeline';
 
 export function TeamVote() {
   const {
@@ -89,6 +90,8 @@ export function TeamVote() {
             size="small"
           />
         </div>
+
+        <CaptainTimeline />
       </div>
     </div>
   );
