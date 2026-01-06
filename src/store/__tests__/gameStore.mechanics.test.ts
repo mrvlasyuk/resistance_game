@@ -25,7 +25,7 @@ function seedNamedGame(totalPlayers: number, names?: string[]) {
     result.current.completeNameEntryTurn();
   });
 
-  // Skip the host reminder screen for mechanics tests
+  // Skip the spy intro / reveal screens for mechanics tests
   act(() => {
     useGameStore.setState({ phase: 'captain' });
   });
@@ -360,22 +360,23 @@ describe('gameStore mechanics', () => {
     expect(useGameStore.getState().missions[0].votes).toHaveLength(1);
   });
 
-	  it('goBack should never allow returning to name-entry (role reveal)', () => {
-	    const snapshot: GameState = {
-	      phase: 'captain',
-	      totalPlayers: 5,
-	      players: [],
-	      savedNames: [],
-	      captainTurns: [],
-	      captainIndex: 0,
-	      missions: [],
-	      currentPlayerIndex: 0,
-	      proposedTeam: [],
-	      language: 'en',
-      rejectedTeamsCount: 0,
-      winner: null,
-      winReason: null,
-    };
+		  it('goBack should never allow returning to name-entry (role reveal)', () => {
+		    const snapshot: GameState = {
+		      phase: 'captain',
+		      totalPlayers: 5,
+		      players: [],
+		      savedNames: [],
+		      captainTurns: [],
+		      captainIndex: 0,
+		      missions: [],
+		      currentPlayerIndex: 0,
+		      proposedTeam: [],
+          spyRevealIndex: 0,
+		      language: 'en',
+	      rejectedTeamsCount: 0,
+	      winner: null,
+	      winReason: null,
+	    };
 
     act(() => {
       useGameStore.setState({

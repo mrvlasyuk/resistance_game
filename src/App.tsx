@@ -3,6 +3,8 @@ import { useGameStore } from './store/gameStore';
 import { useTranslation } from './hooks/useTranslation';
 import { Lobby } from './screens/Lobby';
 import { NameEntry } from './screens/NameEntry';
+import { SpyRevealChoice } from './screens/SpyRevealChoice';
+import { SpyReveal } from './screens/SpyReveal';
 import { SpyIntro } from './screens/SpyIntro';
 import { Captain } from './screens/Captain';
 import { TeamSelect } from './screens/TeamSelect';
@@ -49,6 +51,10 @@ function App() {
         return <Lobby />;
       case 'name-entry':
         return <NameEntry />;
+      case 'spy-reveal-choice':
+        return <SpyRevealChoice />;
+      case 'spy-reveal':
+        return <SpyReveal />;
       case 'spy-intro':
         return <SpyIntro />;
       case 'captain':

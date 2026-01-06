@@ -37,6 +37,8 @@ export interface CaptainTurn {
 export type GamePhase =
   | 'lobby'
   | 'name-entry'
+  | 'spy-reveal-choice'
+  | 'spy-reveal'
   | 'spy-intro'
   | 'captain'
   | 'team-select'
@@ -55,6 +57,7 @@ export interface GameState {
   missions: Mission[];
   currentPlayerIndex: number; // для голосования в миссии
   proposedTeam: string[]; // команда, предложенная капитаном (до утверждения)
+  spyRevealIndex: number; // index of current player in spy reveal round
   language: 'en' | 'ru';
   rejectedTeamsCount: number; // счетчик отклоненных команд (в текущей миссии)
   winner: 'resistance' | 'spies' | null;

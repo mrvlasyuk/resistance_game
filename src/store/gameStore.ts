@@ -18,6 +18,8 @@ interface GameStore extends GameState {
   addPlayer: (name: string) => void;
   addSavedName: (name: string) => void;
   completeNameEntryTurn: () => void;
+  chooseSpyRevealMethod: (method: 'phone' | 'sleep') => void;
+  advanceSpyRevealTurn: () => void;
   setPhase: (phase: GamePhase) => void;
   canGoBack: () => boolean;
   goBack: () => void;
@@ -46,6 +48,7 @@ const initialState: GameState = {
   missions: [],
   currentPlayerIndex: 0,
   proposedTeam: [],
+  spyRevealIndex: 0,
   language: 'en',
   rejectedTeamsCount: 0,
   winner: null,
@@ -63,6 +66,7 @@ function snapshotState(state: GameStore): GameState {
     missions: state.missions,
     currentPlayerIndex: state.currentPlayerIndex,
     proposedTeam: state.proposedTeam,
+    spyRevealIndex: state.spyRevealIndex,
     language: state.language,
     rejectedTeamsCount: state.rejectedTeamsCount,
     winner: state.winner,
@@ -106,6 +110,7 @@ export const useGameStore = create<GameStore>()(
 	          missions,
 	          captainIndex: randomCaptainIndex,
 	          proposedTeam: [],
+            spyRevealIndex: 0,
 	          rejectedTeamsCount: 0,
 	          winner: null,
 	          winReason: null,
@@ -163,10 +168,34 @@ export const useGameStore = create<GameStore>()(
         const state = get();
         const allPlayersNamed = state.players.length > 0 && !state.players.some(p => p.name.startsWith('Player '));
         if (allPlayersNamed) {
-          set({ phase: 'spy-intro' });
+          set({ phase: 'spy-reveal-choice', spyRevealIndex: 0 });
         } else {
           set({ phase: 'name-entry' });
         }
+      },
+
+      chooseSpyRevealMethod: (method: 'phone' | 'sleep') => {
+        if (method === 'sleep') {
+          set({ phase: 'spy-intro', spyRevealIndex: 0 });
+          return;
+        }
+        set({ phase: 'spy-reveal', spyRevealIndex: 0 });
+      },
+
+      advanceSpyRevealTurn: () => {
+        const state = get();
+        if (state.phase !== 'spy-reveal') return;
+
+        const totalPlayers = state.players.length;
+        if (totalPlayers === 0) return;
+
+        const nextIndex = state.spyRevealIndex + 1;
+        if (nextIndex >= totalPlayers) {
+          set({ phase: 'captain', spyRevealIndex: 0 });
+          return;
+        }
+
+        set({ spyRevealIndex: nextIndex });
       },
 
       getCurrentPlayerRole: () => {
@@ -448,7 +477,7 @@ export const useGameStore = create<GameStore>()(
     }),
     {
       name: 'resistance-game-state',
-      version: 3,
+      version: 4,
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         phase: state.phase,
@@ -460,6 +489,7 @@ export const useGameStore = create<GameStore>()(
         missions: state.missions,
         currentPlayerIndex: state.currentPlayerIndex,
         proposedTeam: state.proposedTeam,
+        spyRevealIndex: state.spyRevealIndex,
         language: state.language,
         rejectedTeamsCount: state.rejectedTeamsCount,
         winner: state.winner,
@@ -489,6 +519,7 @@ export const useGameStore = create<GameStore>()(
           ...initialState,
           ...rest,
           proposedTeam: rest.proposedTeam ?? [],
+          spyRevealIndex: rest.spyRevealIndex ?? 0,
           rejectedTeamsCount: rest.rejectedTeamsCount ?? 0,
           winner: rest.winner ?? null,
           winReason: rest.winReason ?? null,

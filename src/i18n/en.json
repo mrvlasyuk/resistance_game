@@ -54,6 +54,25 @@
     "step3": "Spies close their eyes, then everyone opens their eyes.",
     "continue": "Continue"
   },
+  "spyRevealChoice": {
+    "title": "Spy Intro",
+    "subtitle": "How should spies learn each other?",
+    "note": "If you choose to pass the device, each player gets a private screen. Spies see other spies, and everyone reads a short rhyme for 7 seconds.",
+    "passPhone": "Pass the device around (no sleep)",
+    "citySleeps": "Classic: the city sleeps"
+  },
+  "spyReveal": {
+    "title": "Spy Check",
+    "subtitle": "Pass the device to each player. Everyone reads for 7 seconds.",
+    "playerTurn": "{{playerName}}'s Turn",
+    "progress": "Player {{current}} / {{total}}",
+    "spyList": "Other Spies:",
+    "poemTitle": "Count this rhyme (7s)",
+    "poemBody": "One, two, three, four, five,\nCount to seven, stay alive.\nRead it slowly, don’t be fast,\nThen clear the screen when time has passed.",
+    "wait": "Wait {{seconds}}s…",
+    "ready": "You can continue.",
+    "continue": "Continue"
+  },
   "captain": {
     "title": "Mission {{number}}",
     "currentCaptain": "Current Captain",

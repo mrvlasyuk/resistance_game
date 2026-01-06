@@ -80,7 +80,61 @@ describe('gameStore', () => {
     });
 
     expect(result.current.players.map(p => p.name)).toEqual(['Alice', 'Bob', 'Cara', 'Dan', 'Eve']);
+    expect(result.current.phase).toBe('spy-reveal-choice');
+  });
+
+  it('chooseSpyRevealMethod should route to spy-intro or spy-reveal', () => {
+    const { result } = renderHook(() => useGameStore());
+
+    act(() => {
+      useGameStore.setState({
+        phase: 'spy-reveal-choice',
+        players: [
+          { id: 'p1', name: 'A', role: 'resistance' },
+          { id: 'p2', name: 'B', role: 'spy' },
+        ],
+        spyRevealIndex: 1,
+      } as any);
+    });
+
+    act(() => {
+      result.current.chooseSpyRevealMethod('sleep');
+    });
     expect(result.current.phase).toBe('spy-intro');
+    expect(result.current.spyRevealIndex).toBe(0);
+
+    act(() => {
+      result.current.chooseSpyRevealMethod('phone');
+    });
+    expect(result.current.phase).toBe('spy-reveal');
+    expect(result.current.spyRevealIndex).toBe(0);
+  });
+
+  it('advanceSpyRevealTurn should advance and finish to captain', () => {
+    const { result } = renderHook(() => useGameStore());
+
+    act(() => {
+      useGameStore.setState({
+        phase: 'spy-reveal',
+        players: [
+          { id: 'p1', name: 'A', role: 'resistance' },
+          { id: 'p2', name: 'B', role: 'spy' },
+          { id: 'p3', name: 'C', role: 'resistance' },
+        ],
+        spyRevealIndex: 0,
+      } as any);
+    });
+
+    act(() => result.current.advanceSpyRevealTurn());
+    expect(result.current.phase).toBe('spy-reveal');
+    expect(result.current.spyRevealIndex).toBe(1);
+
+    act(() => result.current.advanceSpyRevealTurn());
+    expect(result.current.spyRevealIndex).toBe(2);
+
+    act(() => result.current.advanceSpyRevealTurn());
+    expect(result.current.phase).toBe('captain');
+    expect(result.current.spyRevealIndex).toBe(0);
   });
 
   it('selectTeam should store proposedTeam and move to team-vote', () => {
