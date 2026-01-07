@@ -5,6 +5,7 @@ import { PrivateScreen } from '../components/PrivateScreen';
 import { MissionProgressIndicator } from '../components/MissionProgressIndicator';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../hooks/useTranslation';
+import { getFailThreshold } from '../utils/gameLogic';
 
 export function MissionVote() {
   const [selectedCard, setSelectedCard] = useState<'success' | 'fail' | null>(null);
@@ -14,6 +15,7 @@ export function MissionVote() {
     players, 
     missions, 
     currentPlayerIndex, 
+    totalPlayers,
     submitVote, 
     nextMissionVoter 
   } = useGameStore();
@@ -21,6 +23,7 @@ export function MissionVote() {
 
   const currentMission = missions.find(m => m.result === 'pending');
   if (!currentMission) return null;
+  const failThreshold = getFailThreshold(currentMission.number, totalPlayers);
 
   const teamPlayers = currentMission.team.map(id => 
     players.find(p => p.id === id)
@@ -80,6 +83,13 @@ export function MissionVote() {
             <p className="text-white/60">
               {t('missionVote.playerTurn', { playerName: currentPlayer.name })}
             </p>
+            {failThreshold > 1 && (
+              <div className="mt-3 flex justify-center">
+                <span className="pill pill-warning">
+                  {t('specialFailRule.message', { mission: currentMission.number, threshold: failThreshold })}
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="rounded-xl p-4 bg-amber-400 border border-amber-500">
@@ -157,6 +167,13 @@ export function MissionVote() {
           <p className="text-white/60">
             {t('missionVote.subtitle')}
           </p>
+          {failThreshold > 1 && (
+            <div className="mt-3 flex justify-center">
+              <span className="pill pill-warning">
+                {t('specialFailRule.message', { mission: currentMission.number, threshold: failThreshold })}
+              </span>
+            </div>
+          )}
         </div>
 
         <Card>

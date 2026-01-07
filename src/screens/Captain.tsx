@@ -3,14 +3,16 @@ import { Button } from '../components/Button';
 import { MissionProgressIndicator } from '../components/MissionProgressIndicator';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../hooks/useTranslation';
+import { getFailThreshold } from '../utils/gameLogic';
 
 export function Captain() {
-  const { players, captainIndex, missions, setPhase } = useGameStore();
+  const { players, totalPlayers, captainIndex, missions, setPhase } = useGameStore();
   const { t } = useTranslation();
 
   const currentCaptain = players[captainIndex];
   const currentMission = missions.find(m => m.result === 'pending');
   const missionNumber = currentMission?.number || 1;
+  const failThreshold = getFailThreshold(missionNumber, totalPlayers);
 
   const handleNext = () => {
     setPhase('team-select');
@@ -23,6 +25,13 @@ export function Captain() {
           <h1 className="text-3xl font-bold text-white mb-2">
             {t('captain.title', { number: missionNumber })}
           </h1>
+          {failThreshold > 1 && (
+            <div className="mt-3 flex justify-center">
+              <span className="pill pill-warning">
+                {t('specialFailRule.message', { mission: missionNumber, threshold: failThreshold })}
+              </span>
+            </div>
+          )}
         </div>
 
         <Card>

@@ -73,6 +73,9 @@
     "ready": "You can continue.",
     "continue": "Continue"
   },
+  "specialFailRule": {
+    "message": "Important: Mission {{mission}} needs {{threshold}} FAIL cards to fail."
+  },
   "captain": {
     "title": "Mission {{number}}",
     "currentCaptain": "Current Captain",

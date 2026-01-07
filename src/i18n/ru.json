@@ -73,6 +73,9 @@
     "ready": "Можно продолжать.",
     "continue": "Продолжить"
   },
+  "specialFailRule": {
+    "message": "Важно: чтобы провалить миссию {{mission}}, нужно {{threshold}} карт «Провал»."
+  },
   "captain": {
     "title": "Миссия {{number}}",
     "currentCaptain": "Текущий капитан",

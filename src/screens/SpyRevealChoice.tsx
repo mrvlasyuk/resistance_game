@@ -2,10 +2,15 @@ import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../hooks/useTranslation';
+import { getFailThreshold } from '../utils/gameLogic';
 
 export function SpyRevealChoice() {
-  const { chooseSpyRevealMethod } = useGameStore();
+  const { totalPlayers, chooseSpyRevealMethod } = useGameStore();
   const { t } = useTranslation();
+
+  const specialFailMissions = ([1, 2, 3, 4, 5] as const)
+    .map((mission) => ({ mission, threshold: getFailThreshold(mission, totalPlayers) }))
+    .filter(({ threshold }) => threshold > 1);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
@@ -18,6 +23,11 @@ export function SpyRevealChoice() {
         <Card>
           <div className="space-y-4 text-white/80">
             <p>{t('spyRevealChoice.note')}</p>
+            {specialFailMissions.map(({ mission, threshold }) => (
+              <div key={mission} className="pill pill-warning inline-block">
+                {t('specialFailRule.message', { mission, threshold })}
+              </div>
+            ))}
           </div>
         </Card>
 
@@ -38,4 +48,3 @@ export function SpyRevealChoice() {
     </div>
   );
 }
-
