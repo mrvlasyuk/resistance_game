@@ -63,26 +63,26 @@ export function NameEntry() {
     return (
       <PrivateScreen onClose={handleRoleScreenClose}>
         <div className="text-center space-y-6">
-          <h2 className="text-2xl font-bold text-white">
+          <h2 className="text-2xl font-bold pm-heading">
             {t('nameEntry.yourRole')}
           </h2>
           
           <div className={`text-6xl font-bold ${
-            currentPlayerRole === 'spy' ? 'text-rose-400' : 'text-emerald-400'
+            currentPlayerRole === 'spy' ? 'text-rose-700' : 'text-emerald-700'
           }`}>
             {currentPlayerRole === 'spy' ? t('nameEntry.spy') : t('nameEntry.resistance')}
           </div>
           
-          <p className="text-white/70 max-w-sm">
+          <p className="pm-text-70 max-w-sm">
             {t(`nameEntry.roleDescription.${currentPlayerRole}`)}
           </p>
           
           {currentPlayerRole === 'spy' && otherSpies.length > 0 && (
-            <div className="bg-black/30 border border-white/10 rounded-xl p-4">
-              <h3 className="text-lg font-semibold text-rose-300 mb-2">
+            <div className="rounded-xl p-4 border bg-[color:var(--pm-card)] border-[color:var(--pm-border)]">
+              <h3 className="text-lg font-semibold text-rose-700 mb-2">
                 {t('nameEntry.spyList')}
               </h3>
-              <ul className="text-white space-y-1">
+              <ul className="pm-text space-y-1">
                 {otherSpies.map((spy, index) => (
                   <li key={index} className="font-medium">
                     {spy.name}

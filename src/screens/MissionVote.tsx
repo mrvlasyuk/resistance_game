@@ -81,10 +81,10 @@ export function MissionVote() {
       >
         <div className="text-center space-y-8">
           <div>
-            <h2 className="text-2xl font-bold text-white mb-2">
+            <h2 className="text-2xl font-bold pm-heading mb-2">
               {t('missionVote.title')}
             </h2>
-            <p className="text-white/60">
+            <p className="pm-text-60">
               {t('missionVote.playerTurn', { playerName: currentPlayer.name })}
             </p>
             {failThreshold > 1 && (
@@ -103,7 +103,7 @@ export function MissionVote() {
           </div>
 
           <div>
-            <p className="text-lg text-white/80 mb-6">
+            <p className="text-lg pm-text-80 mb-6">
               {t('missionVote.chooseCard')}
             </p>
             
@@ -144,7 +144,7 @@ export function MissionVote() {
 
           {selectedCard && (
             <div className="space-y-4">
-              <p className="text-sm text-white/60">
+              <p className="text-sm pm-text-60">
                 {t('missionVote.confirmChoice')}
               </p>
               <Button

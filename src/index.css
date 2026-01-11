@@ -141,7 +141,9 @@
   
   .private-screen {
     @apply fixed inset-0 z-50 flex flex-col items-center justify-center p-4;
-    background-color: rgba(0, 0, 0, 0.92);
+    background-color: rgb(var(--pm-bg-rgb) / 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   
   .mission-card {

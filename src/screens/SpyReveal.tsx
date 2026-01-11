@@ -41,41 +41,41 @@ export function SpyReveal() {
     advanceSpyRevealTurn();
   };
 
-  if (showPrivate) {
-    return (
-      <PrivateScreen onClose={() => {}} showCloseButton={false} autoCloseSeconds={0}>
-        <div className="text-center space-y-6">
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-2">{t('spyReveal.title')}</h2>
-            <p className="text-white/60">{t('spyReveal.playerTurn', { playerName: currentPlayer.name })}</p>
-          </div>
+      if (showPrivate) {
+        return (
+          <PrivateScreen onClose={() => {}} showCloseButton={false} autoCloseSeconds={0}>
+            <div className="text-center space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold pm-heading mb-2">{t('spyReveal.title')}</h2>
+                <p className="pm-text-60">{t('spyReveal.playerTurn', { playerName: currentPlayer.name })}</p>
+              </div>
 
-          {isSpy && otherSpies.length > 0 && (
-            <div className="bg-black/30 border border-white/10 rounded-xl p-4 text-left">
-              <h3 className="text-lg font-semibold text-rose-300 mb-2">{t('spyReveal.spyList')}</h3>
-              <ul className="text-white space-y-1">
-                {otherSpies.map((spy) => (
-                  <li key={spy.id} className="font-medium">
-                    {spy.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+              {isSpy && otherSpies.length > 0 && (
+                <div className="rounded-xl p-4 border bg-[color:var(--pm-card)] border-[color:var(--pm-border)] text-left">
+                  <h3 className="text-lg font-semibold text-rose-700 mb-2">{t('spyReveal.spyList')}</h3>
+                  <ul className="pm-text space-y-1">
+                    {otherSpies.map((spy) => (
+                      <li key={spy.id} className="font-medium">
+                        {spy.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-          <div className="bg-black/30 border border-white/10 rounded-xl p-4">
-            <div className="text-white/80 font-semibold mb-2">{t('spyReveal.poemTitle')}</div>
-            <div className="text-white/70 whitespace-pre-line">{t('spyReveal.poemBody')}</div>
-            <div className="mt-3 text-sm text-white/60">
-              {secondsLeft > 0
-                ? t('spyReveal.wait', { seconds: secondsLeft })
-                : t('spyReveal.ready')}
-            </div>
-          </div>
+              <div className="rounded-xl p-4 border bg-[color:var(--pm-card)] border-[color:var(--pm-border)]">
+                <div className="pm-text-80 font-semibold mb-2">{t('spyReveal.poemTitle')}</div>
+                <div className="pm-text-70 whitespace-pre-line">{t('spyReveal.poemBody')}</div>
+                <div className="mt-3 text-sm pm-text-60">
+                  {secondsLeft > 0
+                    ? t('spyReveal.wait', { seconds: secondsLeft })
+                    : t('spyReveal.ready')}
+                </div>
+              </div>
 
-          <Button onClick={handleContinue} disabled={secondsLeft > 0} size="lg">
-            {t('spyReveal.continue')}
-          </Button>
+              <Button onClick={handleContinue} disabled={secondsLeft > 0} size="lg">
+                {t('spyReveal.continue')}
+              </Button>
         </div>
       </PrivateScreen>
     );

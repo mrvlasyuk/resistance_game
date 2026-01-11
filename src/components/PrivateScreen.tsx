@@ -39,19 +39,19 @@ export function PrivateScreen({
   };
 
   return (
-    <div className="private-screen">
-      <div className="flex flex-col items-center justify-center h-full max-w-md mx-auto text-center">
-        {children}
-        
-        {autoCloseSeconds > 0 && (
-          <div className="mt-6 text-white/60 text-sm">
-            {t('nameEntry.autoClose', { seconds: secondsLeft })}
-          </div>
-        )}
-        
-        {showCloseButton && (
-          <Button
-            variant="secondary"
+      <div className="private-screen">
+        <div className="flex flex-col items-center justify-center h-full max-w-md mx-auto text-center">
+          {children}
+          
+          {autoCloseSeconds > 0 && (
+            <div className="mt-6 pm-text-60 text-sm">
+              {t('nameEntry.autoClose', { seconds: secondsLeft })}
+            </div>
+          )}
+          
+          {showCloseButton && (
+            <Button
+              variant="secondary"
             onClick={handleClose}
             className="mt-4"
           >
