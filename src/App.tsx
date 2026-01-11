@@ -19,6 +19,7 @@ function App() {
   const [hasHydrated, setHasHydrated] = useState(useGameStore.persist.hasHydrated());
   const phase = useGameStore((state) => state.phase);
   const { t } = useTranslation();
+  const isShotMode = new URLSearchParams(window.location.search).has('shot');
 
   useEffect(() => {
     const unsubscribe = useGameStore.persist.onFinishHydration(() => {
@@ -77,8 +78,8 @@ function App() {
   return (
     <div className="app-shell">
       <div className="app-shell__content">{renderScreen()}</div>
-      <BackButton />
-      {phase !== 'lobby' && phase !== 'victory' && <NewGameButton />}
+      {!isShotMode && <BackButton />}
+      {!isShotMode && phase !== 'lobby' && phase !== 'victory' && <NewGameButton />}
     </div>
   );
 }
