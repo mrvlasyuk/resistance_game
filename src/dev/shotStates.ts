@@ -8,13 +8,13 @@ export type ShotId =
 
 function basePlayers(): Player[] {
   return [
-    { id: 'p1', name: 'Алекс', role: 'spy' },
-    { id: 'p2', name: 'Даша', role: 'resistance' },
-    { id: 'p3', name: 'Саша', role: 'spy' },
-    { id: 'p4', name: 'Катя', role: 'resistance' },
-    { id: 'p5', name: 'Илья', role: 'resistance' },
-    { id: 'p6', name: 'Маша', role: 'spy' },
-    { id: 'p7', name: 'Петя', role: 'resistance' },
+    { id: 'p1', name: 'Светополк', role: 'spy' },
+    { id: 'p2', name: 'Добрыня', role: 'resistance' },
+    { id: 'p3', name: 'Ярополк', role: 'spy' },
+    { id: 'p4', name: 'Всеволод', role: 'resistance' },
+    { id: 'p5', name: 'Мстислав', role: 'resistance' },
+    { id: 'p6', name: 'Ростислав', role: 'spy' },
+    { id: 'p7', name: 'Святослав', role: 'resistance' },
   ];
 }
 
@@ -98,23 +98,23 @@ export function getShotState(shot: string): GameState | null {
   const captainTurns = baseCaptainTurns();
 
   switch (shotId) {
-    case 'captain-m4-specialrule': {
-      return {
-        phase: 'captain',
-        totalPlayers: 7,
-        players,
-        savedNames: ['Лёша', 'Саня', 'Катюха', 'Машка', 'Илюха'],
-        captainTurns: [
-          ...captainTurns,
-          { id: 't6', missionNumber: 4, captainId: 'p4', team: ['p1', 'p2', 'p6', 'p7'], status: 'rejected' },
-          { id: 't7', missionNumber: 4, captainId: 'p5', team: ['p1', 'p3', 'p6', 'p7'], status: 'rejected' },
-          { id: 't8', missionNumber: 4, captainId: 'p6', team: ['p2', 'p3', 'p5', 'p6'], status: 'rejected' },
-        ],
-        captainIndex: 6, // Петя
-        missions: [...completedMissions, mission4Pending(), mission5Pending()],
-        currentPlayerIndex: 0,
-        proposedTeam: [],
-        spyRevealIndex: 0,
+	    case 'captain-m4-specialrule': {
+	      return {
+	        phase: 'captain',
+	        totalPlayers: 7,
+	        players,
+	        savedNames: ['Светополк', 'Добрыня', 'Ярополк', 'Всеволод', 'Мстислав', 'Ростислав', 'Святослав'],
+	        captainTurns: [
+	          ...captainTurns,
+	          { id: 't6', missionNumber: 4, captainId: 'p4', team: ['p1', 'p2', 'p6', 'p7'], status: 'rejected' },
+	          { id: 't7', missionNumber: 4, captainId: 'p5', team: ['p1', 'p3', 'p6', 'p7'], status: 'rejected' },
+	          { id: 't8', missionNumber: 4, captainId: 'p6', team: ['p2', 'p3', 'p5', 'p6'], status: 'rejected' },
+	        ],
+	        captainIndex: 6, // Святослав
+	        missions: [...completedMissions, mission4Pending(), mission5Pending()],
+	        currentPlayerIndex: 0,
+	        proposedTeam: [],
+	        spyRevealIndex: 0,
         language: 'ru',
         rejectedTeamsCount: 3,
         winner: null,
@@ -122,12 +122,12 @@ export function getShotState(shot: string): GameState | null {
       };
     }
 
-    case 'team-vote-m4-tension': {
-      const proposedTeam = ['p1', 'p3', 'p6', 'p2'];
-      return {
-        phase: 'team-vote',
-        totalPlayers: 7,
-        players,
+	    case 'team-vote-m4-tension': {
+	      const proposedTeam = ['p1', 'p3', 'p6', 'p2'];
+	      return {
+	        phase: 'team-vote',
+	        totalPlayers: 7,
+	        players,
         savedNames: [],
         captainTurns: [
           ...captainTurns,
@@ -140,12 +140,12 @@ export function getShotState(shot: string): GameState | null {
             team: proposedTeam,
             status: 'proposed',
           },
-        ],
-        captainIndex: 1, // Даша
-        missions: [...completedMissions, mission4Pending(), mission5Pending()],
-        currentPlayerIndex: 0,
-        proposedTeam,
-        spyRevealIndex: 0,
+	        ],
+	        captainIndex: 1, // Добрыня
+	        missions: [...completedMissions, mission4Pending(), mission5Pending()],
+	        currentPlayerIndex: 0,
+	        proposedTeam,
+	        spyRevealIndex: 0,
         language: 'ru',
         rejectedTeamsCount: 4,
         winner: null,
@@ -226,4 +226,3 @@ export function getShotState(shot: string): GameState | null {
       return null;
   }
 }
-
