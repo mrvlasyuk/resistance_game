@@ -9,11 +9,11 @@ export type ShotId =
 function basePlayers(): Player[] {
   return [
     { id: 'p1', name: 'Светополк', role: 'spy' },
-    { id: 'p2', name: 'Добрыня', role: 'resistance' },
+    { id: 'p2', name: 'Любава', role: 'resistance' },
     { id: 'p3', name: 'Ярополк', role: 'spy' },
-    { id: 'p4', name: 'Всеволод', role: 'resistance' },
+    { id: 'p4', name: 'Милослава', role: 'resistance' },
     { id: 'p5', name: 'Мстислав', role: 'resistance' },
-    { id: 'p6', name: 'Ростислав', role: 'spy' },
+    { id: 'p6', name: 'Забава', role: 'spy' },
     { id: 'p7', name: 'Святослав', role: 'resistance' },
   ];
 }
@@ -103,7 +103,7 @@ export function getShotState(shot: string): GameState | null {
 	        phase: 'captain',
 	        totalPlayers: 7,
 	        players,
-	        savedNames: ['Светополк', 'Добрыня', 'Ярополк', 'Всеволод', 'Мстислав', 'Ростислав', 'Святослав'],
+	        savedNames: ['Светополк', 'Любава', 'Ярополк', 'Милослава', 'Мстислав', 'Забава', 'Святослав'],
 	        captainTurns: [
 	          ...captainTurns,
 	          { id: 't6', missionNumber: 4, captainId: 'p4', team: ['p1', 'p2', 'p6', 'p7'], status: 'rejected' },
@@ -129,19 +129,19 @@ export function getShotState(shot: string): GameState | null {
 	        totalPlayers: 7,
 	        players,
         savedNames: [],
-        captainTurns: [
-          ...captainTurns,
-          { id: 't6', missionNumber: 4, captainId: 'p5', team: ['p2', 'p3', 'p5', 'p7'], status: 'rejected' },
-          { id: 't7', missionNumber: 4, captainId: 'p6', team: ['p1', 'p2', 'p5', 'p7'], status: 'rejected' },
-          {
-            id: 't8',
-            missionNumber: 4,
-            captainId: 'p2',
-            team: proposedTeam,
-            status: 'proposed',
-          },
+	        captainTurns: [
+	          ...captainTurns,
+	          { id: 't6', missionNumber: 4, captainId: 'p5', team: ['p2', 'p3', 'p5', 'p7'], status: 'rejected' },
+	          { id: 't7', missionNumber: 4, captainId: 'p6', team: ['p1', 'p2', 'p5', 'p7'], status: 'rejected' },
+	          {
+	            id: 't8',
+	            missionNumber: 4,
+	            captainId: 'p2',
+	            team: proposedTeam,
+	            status: 'proposed',
+	          },
 	        ],
-	        captainIndex: 1, // Добрыня
+	        captainIndex: 1, // Любава
 	        missions: [...completedMissions, mission4Pending(), mission5Pending()],
 	        currentPlayerIndex: 0,
 	        proposedTeam,
