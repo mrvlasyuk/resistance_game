@@ -58,7 +58,7 @@ export function NewGameDialog({ open, onClose }: NewGameDialogProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] bg-black/60 flex items-center justify-center p-4 safe-area-padding">
+    <div className="fixed inset-0 z-[60] bg-[color:rgb(var(--pm-bg-rgb)/0.85)] backdrop-blur-sm flex items-center justify-center p-4 safe-area-padding">
       <div className="card w-full max-w-sm">
         <div className="space-y-2">
           <h2 className="text-xl font-bold pm-heading">{t('common.newGame')}</h2>
