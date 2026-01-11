@@ -29,10 +29,10 @@ export function TeamVote() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold pm-heading mb-2">
             {t('teamVote.title', { number: currentMission.number })}
           </h1>
-          <p className="text-white/60">
+          <p className="pm-text-60">
             {t('teamVote.subtitle')}
           </p>
           {rejectedTeamsCount > 0 && (
@@ -47,7 +47,7 @@ export function TeamVote() {
         <Card>
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-white/70 mb-3">
+              <h3 className="text-lg font-semibold pm-text-70 mb-3">
                 {t('teamVote.proposedTeam')}
               </h3>
               <div className="flex flex-wrap gap-2">

@@ -16,12 +16,12 @@ export function SpyRevealChoice() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">{t('spyRevealChoice.title')}</h1>
-          <p className="text-white/60">{t('spyRevealChoice.subtitle')}</p>
+          <h1 className="text-3xl font-bold pm-heading mb-2">{t('spyRevealChoice.title')}</h1>
+          <p className="pm-text-60">{t('spyRevealChoice.subtitle')}</p>
         </div>
 
         <Card>
-          <div className="space-y-4 text-white/80">
+          <div className="space-y-4 pm-text-80">
             <p>{t('spyRevealChoice.note')}</p>
             {specialFailMissions.map(({ mission, threshold }) => (
               <div key={mission} className="pill pill-warning inline-block">

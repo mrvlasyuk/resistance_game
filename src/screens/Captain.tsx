@@ -22,7 +22,7 @@ export function Captain() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold pm-heading mb-2">
             {t('captain.title', { number: missionNumber })}
           </h1>
           {failThreshold > 1 && (
@@ -37,7 +37,7 @@ export function Captain() {
         <Card>
           <div className="text-center space-y-6">
             <div>
-              <h2 className="text-xl font-semibold text-white/70 mb-4">
+              <h2 className="text-xl font-semibold pm-text-70 mb-4">
                 {t('captain.currentCaptain')}
               </h2>
               <div className="rounded-xl p-6 bg-blue-600 border border-blue-700">
@@ -47,7 +47,7 @@ export function Captain() {
               </div>
             </div>
 
-            <p className="text-white/70">
+            <p className="pm-text-70">
               {t('captain.selectTeam')}
             </p>
 

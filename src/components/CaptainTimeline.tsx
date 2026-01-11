@@ -44,13 +44,13 @@ export function CaptainTimeline() {
   return (
     <div className="mt-6">
       <div className="flex items-center justify-between gap-3">
-        <div className="text-sm text-white/70">
-          <span className="text-white/50">{t('captainTimeline.captain')}: </span>
-          <span className="font-semibold text-white/80">{currentCaptain.name}</span>
+        <div className="text-sm pm-text-70">
+          <span className="pm-text-50">{t('captainTimeline.captain')}: </span>
+          <span className="font-semibold pm-text-80">{currentCaptain.name}</span>
         </div>
-        <div className="text-sm text-white/70">
-          <span className="text-white/50">{t('captainTimeline.remaining')}: </span>
-          <span className="font-semibold text-white/80">{remainingRejections}</span>
+        <div className="text-sm pm-text-70">
+          <span className="pm-text-50">{t('captainTimeline.remaining')}: </span>
+          <span className="font-semibold pm-text-80">{remainingRejections}</span>
         </div>
       </div>
 
@@ -62,7 +62,7 @@ export function CaptainTimeline() {
 
       {captainTurns.length > 0 && (
         <div className="mt-3">
-          <div className="text-xs text-white/50 mb-2">{t('captainTimeline.history')}</div>
+          <div className="text-xs pm-text-50 mb-2">{t('captainTimeline.history')}</div>
           <div className="flex gap-2 overflow-x-auto pb-1">
             {captainTurns.map((turn) => {
               const captainName =
@@ -74,11 +74,11 @@ export function CaptainTimeline() {
               return (
                 <div
                   key={turn.id}
-                  className="shrink-0 rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-white/80"
+                  className="shrink-0 rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs pm-text-80"
                   title={label}
                 >
                   <div className="font-semibold">{captainName}</div>
-                  <div className="text-white/60">
+                  <div className="pm-text-60">
                     {turn.revealed
                       ? cardsEmoji(turn.revealed.success, turn.revealed.fail)
                       : statusEmoji(turn.status)}

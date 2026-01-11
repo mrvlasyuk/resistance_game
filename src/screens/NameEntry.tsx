@@ -68,7 +68,7 @@ export function NameEntry() {
           </h2>
           
           <div className={`text-6xl font-bold ${
-            currentPlayerRole === 'spy' ? 'text-rose-400' : 'text-blue-300'
+            currentPlayerRole === 'spy' ? 'text-rose-400' : 'text-emerald-400'
           }`}>
             {currentPlayerRole === 'spy' ? t('nameEntry.spy') : t('nameEntry.resistance')}
           </div>
@@ -78,7 +78,7 @@ export function NameEntry() {
           </p>
           
           {currentPlayerRole === 'spy' && otherSpies.length > 0 && (
-            <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+            <div className="bg-black/30 border border-white/10 rounded-xl p-4">
               <h3 className="text-lg font-semibold text-rose-300 mb-2">
                 {t('nameEntry.spyList')}
               </h3>
@@ -100,10 +100,10 @@ export function NameEntry() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold pm-heading mb-2">
             {t('nameEntry.title')}
           </h1>
-          <p className="text-white/60">
+          <p className="pm-text-60">
             {t('nameEntry.playerNumber', { number: totalPlayers - players.filter(p => p.name.startsWith('Player ')).length + 1 })}
           </p>
         </div>
@@ -111,7 +111,7 @@ export function NameEntry() {
         <Card>
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-3">
+              <label className="block text-sm font-medium pm-text-70 mb-3">
                 {t('nameEntry.enterName')}
               </label>
               <input
@@ -127,7 +127,7 @@ export function NameEntry() {
 
             {suggestions.length > 0 && (
               <div className="space-y-2">
-                <div className="text-sm font-medium text-white/60">
+                <div className="text-sm font-medium pm-text-60">
                   {t('nameEntry.suggestions')}
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -158,7 +158,7 @@ export function NameEntry() {
 
         {players.length > 0 && (
           <div className="mt-6 text-center">
-            <p className="text-white/60 text-sm">
+            <p className="pm-text-60 text-sm">
               {players.filter(p => !p.name.startsWith('Player ')).length} / {totalPlayers} players added
             </p>
           </div>

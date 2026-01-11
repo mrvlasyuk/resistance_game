@@ -165,10 +165,10 @@ export function MissionVote() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold pm-heading mb-2">
             {t('missionVote.title')}
           </h1>
-          <p className="text-white/60">
+          <p className="pm-text-60">
             {t('missionVote.subtitle')}
           </p>
           {failThreshold > 1 && (
@@ -209,7 +209,7 @@ export function MissionVote() {
 
         {/* Team members list */}
         <Card className="mt-6 p-4">
-          <h3 className="text-lg font-semibold text-white/70 mb-3">
+          <h3 className="text-lg font-semibold pm-text-70 mb-3">
             {t('missionVote.missionTeam')}
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -221,7 +221,7 @@ export function MissionVote() {
                     ? 'bg-amber-400 text-black border-amber-500'
                     : index < currentPlayerIndex
                     ? 'bg-emerald-600 text-white border-emerald-700'
-                    : 'bg-slate-800 text-white/70 border-slate-700'
+                    : 'bg-slate-800 pm-text-70 border-slate-700'
                 }`}
               >
                 {player?.name}

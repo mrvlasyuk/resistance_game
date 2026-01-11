@@ -58,11 +58,11 @@ export function NewGameDialog({ open, onClose }: NewGameDialogProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] bg-slate-950 flex items-center justify-center p-4 safe-area-padding">
+    <div className="fixed inset-0 z-[60] bg-black/60 flex items-center justify-center p-4 safe-area-padding">
       <div className="card w-full max-w-sm">
         <div className="space-y-2">
-          <h2 className="text-xl font-bold text-white">{t('common.newGame')}</h2>
-          <p className="text-sm text-white/70">{t('newGame.warning')}</p>
+          <h2 className="text-xl font-bold pm-heading">{t('common.newGame')}</h2>
+          <p className="text-sm pm-text-70">{t('newGame.warning')}</p>
         </div>
 
         <div className="mt-6 space-y-3">
@@ -77,7 +77,7 @@ export function NewGameDialog({ open, onClose }: NewGameDialogProps) {
               onPointerUp={cancelHold}
               onPointerLeave={cancelHold}
               onPointerCancel={cancelHold}
-              className="w-full rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold py-3 px-6 border border-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 touch-manipulation"
+              className="w-full rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold py-3 px-6 border border-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--pm-card)] touch-manipulation"
             >
               {t('newGame.holdToConfirm', { seconds: holdSeconds })}
             </button>
@@ -94,4 +94,3 @@ export function NewGameDialog({ open, onClose }: NewGameDialogProps) {
     </div>
   );
 }
-

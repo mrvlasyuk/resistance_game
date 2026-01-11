@@ -36,9 +36,9 @@ function App() {
         <div className="app-shell__content min-h-screen flex items-center justify-center p-4 safe-area-padding">
           <div className="card text-center space-y-4 w-full max-w-sm">
             <div className="flex justify-center">
-              <div className="w-10 h-10 rounded-full border-2 border-white/20 border-t-white/80 animate-spin" />
+              <div className="w-10 h-10 rounded-full border-2 border-slate-300 border-t-[color:var(--pm-accent)] animate-spin" />
             </div>
-            <div className="text-white/70">{t('common.loading')}</div>
+            <div className="pm-text-70">{t('common.loading')}</div>
           </div>
         </div>
       </div>

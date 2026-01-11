@@ -20,7 +20,8 @@ export function Button({
   
   const variantClasses = {
     primary: 'bg-blue-600 hover:bg-blue-500 text-white focus-visible:ring-blue-500',
-    secondary: 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 focus-visible:ring-slate-500',
+    secondary:
+      'bg-slate-800 hover:bg-slate-700 text-[color:var(--pm-text)] border border-slate-700 focus-visible:ring-blue-500',
     success: 'bg-emerald-600 hover:bg-emerald-500 text-white focus-visible:ring-emerald-500',
     danger: 'bg-rose-600 hover:bg-rose-500 text-white focus-visible:ring-rose-500',
   };

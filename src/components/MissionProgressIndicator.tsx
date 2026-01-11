@@ -34,7 +34,7 @@ export function MissionProgressIndicator({
     if (mission.number === currentMissionNumber) {
       return 'bg-amber-400 text-slate-950';
     }
-    return 'bg-slate-800 text-white/70 border border-slate-700';
+    return 'bg-slate-800 pm-text-70 border border-slate-700';
   };
 
   return (
@@ -47,7 +47,7 @@ export function MissionProgressIndicator({
             >
               {mission.number}
             </div>
-            <div className="text-xs text-white/50 mt-1">
+            <div className="text-xs pm-text-50 mt-1">
               {getTeamSize(mission.number, totalPlayers)}
             </div>
           </div>

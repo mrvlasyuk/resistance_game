@@ -23,10 +23,10 @@ export function Lobby() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">
+          <h1 className="text-4xl font-bold pm-heading mb-2">
             {t('lobby.title')}
           </h1>
-          <p className="text-white/60">
+          <p className="pm-text-60">
             {t('lobby.subtitle')}
           </p>
         </div>
@@ -34,10 +34,10 @@ export function Lobby() {
         <Card>
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-3">
+              <label className="block text-sm font-medium pm-text-70 mb-3">
                 {t('lobby.playerCount')}
               </label>
-              <p className="text-xs text-white/40 mb-4">
+              <p className="text-xs pm-text-40 mb-4">
                 {t('lobby.playerCountHelp')}
               </p>
               <div className="grid grid-cols-3 gap-2">
@@ -48,7 +48,7 @@ export function Lobby() {
                     className={`p-3 rounded-lg font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 border ${
                       selectedPlayers === count
                         ? 'bg-blue-600 text-white border-blue-700'
-                        : 'bg-slate-800 hover:bg-slate-700 text-white/80 border-slate-700'
+                        : 'bg-slate-800 hover:bg-slate-700 pm-text-80 border-slate-700'
                     }`}
                   >
                     {count}
@@ -81,10 +81,10 @@ export function Lobby() {
               type="button"
               onClick={() => setShowHowToPlay((prev) => !prev)}
               aria-expanded={showHowToPlay}
-              className="w-full flex items-center justify-between gap-3 text-left rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 px-4 py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+              className="w-full flex items-center justify-between gap-3 text-left rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 px-4 py-3 text-sm font-semibold pm-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               <span>{t(showHowToPlay ? 'lobby.hideHowToPlay' : 'lobby.showHowToPlay')}</span>
-              <span className="text-white/60">{showHowToPlay ? '▴' : '▾'}</span>
+              <span className="pm-text-60">{showHowToPlay ? '▴' : '▾'}</span>
             </button>
 
             {showHowToPlay && (
@@ -94,11 +94,11 @@ export function Lobby() {
                     key={n}
                     className="rounded-xl border border-slate-800 bg-slate-900 p-4"
                   >
-                    <div className="flex items-center justify-between text-xs text-white/50 mb-2">
+                    <div className="flex items-center justify-between text-xs pm-text-50 mb-2">
                       <span>@resistance_rules</span>
                       <span>•</span>
                     </div>
-                    <div className="text-sm text-white/80 leading-relaxed">
+                    <div className="text-sm pm-text-80 leading-relaxed">
                       {t(`lobby.tweets.${n}`)}
                     </div>
                   </div>

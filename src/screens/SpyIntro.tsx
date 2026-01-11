@@ -11,16 +11,16 @@ export function SpyIntro() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold pm-heading mb-2">
             {t('spyIntro.title')}
           </h1>
-          <p className="text-white/60">
+          <p className="pm-text-60">
             {t('spyIntro.subtitle')}
           </p>
         </div>
 
         <Card>
-          <div className="space-y-4 text-white/80">
+          <div className="space-y-4 pm-text-80">
             <ol className="list-decimal pl-5 space-y-2">
               <li>{t('spyIntro.step1')}</li>
               <li>{t('spyIntro.step2')}</li>
@@ -42,4 +42,3 @@ export function SpyIntro() {
     </div>
   );
 }
-

@@ -51,7 +51,7 @@ export function SpyReveal() {
           </div>
 
           {isSpy && otherSpies.length > 0 && (
-            <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 text-left">
+            <div className="bg-black/30 border border-white/10 rounded-xl p-4 text-left">
               <h3 className="text-lg font-semibold text-rose-300 mb-2">{t('spyReveal.spyList')}</h3>
               <ul className="text-white space-y-1">
                 {otherSpies.map((spy) => (
@@ -63,7 +63,7 @@ export function SpyReveal() {
             </div>
           )}
 
-          <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4">
+          <div className="bg-black/30 border border-white/10 rounded-xl p-4">
             <div className="text-white/80 font-semibold mb-2">{t('spyReveal.poemTitle')}</div>
             <div className="text-white/70 whitespace-pre-line">{t('spyReveal.poemBody')}</div>
             <div className="mt-3 text-sm text-white/60">
@@ -85,8 +85,8 @@ export function SpyReveal() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">{t('spyReveal.title')}</h1>
-          <p className="text-white/60">{t('spyReveal.subtitle')}</p>
+          <h1 className="text-3xl font-bold pm-heading mb-2">{t('spyReveal.title')}</h1>
+          <p className="pm-text-60">{t('spyReveal.subtitle')}</p>
         </div>
 
         <Card>
@@ -113,4 +113,3 @@ export function SpyReveal() {
     </div>
   );
 }
-

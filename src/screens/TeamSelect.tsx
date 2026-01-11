@@ -36,10 +36,10 @@ export function TeamSelect() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 safe-area-padding">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold pm-heading mb-2">
             {t('teamSelect.title')}
           </h1>
-          <p className="text-white/60">
+          <p className="pm-text-60">
             {t('teamSelect.missionNumber', { number: missionNumber })}
           </p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
@@ -57,7 +57,7 @@ export function TeamSelect() {
         <Card>
           <div className="space-y-6">
             <div className="text-center">
-              <p className="text-sm text-white/60 mb-4">
+              <p className="text-sm pm-text-60 mb-4">
                 {t('teamSelect.selectedCount', { 
                   selected: selectedPlayers.length, 
                   total: requiredTeamSize 
@@ -66,7 +66,7 @@ export function TeamSelect() {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-white/70 mb-4">
+              <h3 className="text-lg font-semibold pm-text-70 mb-4">
                 {t('teamSelect.playerList')}
               </h3>
               <div className="space-y-2">
@@ -81,12 +81,12 @@ export function TeamSelect() {
                     className={`w-full p-4 rounded-lg font-semibold transition-colors duration-150 text-left border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 disabled:opacity-50 disabled:cursor-not-allowed ${
                       selectedPlayers.includes(player.id)
                         ? 'bg-blue-600 text-white border-blue-700'
-                        : 'bg-slate-800 text-white/80 border-slate-700 hover:bg-slate-700'
+                        : 'bg-slate-800 pm-text-80 border-slate-700 hover:bg-slate-700'
                     }`}
                   >
                     {player.name}
                     {selectedPlayers.includes(player.id) && (
-                      <span className="float-right text-white/90">✓</span>
+                      <span className="float-right text-white">✓</span>
                     )}
                   </button>
                 ))}
