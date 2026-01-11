@@ -24,7 +24,7 @@ export function SpyRevealChoice() {
           <div className="space-y-4 pm-text-80">
             <p>{t('spyRevealChoice.note')}</p>
             {specialFailMissions.map(({ mission, threshold }) => (
-              <div key={mission} className="pill pill-warning inline-block">
+              <div key={mission} className="pill pill-info inline-block">
                 {t('specialFailRule.message', { mission, threshold })}
               </div>
             ))}

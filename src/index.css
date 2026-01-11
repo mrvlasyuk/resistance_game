@@ -16,6 +16,8 @@
     --pm-accent: #2f80ed; /* sky blue */
     --pm-accent-hover: #256dd0;
     --pm-accent-border: #1e63c4;
+    --pm-accent-rgb: 47 128 237;
+    --pm-rule-rgb: 124 58 237;
     --pm-shadow: rgba(0, 0, 0, 0.15);
 
     --pm-bg-rgb: 251 247 239;
@@ -121,6 +123,12 @@
     background-color: var(--pm-accent);
     border-color: var(--pm-accent-border);
     color: #ffffff;
+  }
+
+  .pill-info {
+    background-color: rgb(var(--pm-rule-rgb) / 0.14);
+    border-color: rgb(var(--pm-rule-rgb) / 0.35);
+    color: #4c1d95;
   }
 
   .pill-success {

@@ -89,7 +89,7 @@ export function MissionVote() {
             </p>
             {failThreshold > 1 && (
               <div className="mt-3 flex justify-center">
-                <span className="pill pill-warning">
+                <span className="pill pill-info">
                   {t('specialFailRule.message', { mission: currentMission.number, threshold: failThreshold })}
                 </span>
               </div>
@@ -173,7 +173,7 @@ export function MissionVote() {
           </p>
           {failThreshold > 1 && (
             <div className="mt-3 flex justify-center">
-              <span className="pill pill-warning">
+              <span className="pill pill-info">
                 {t('specialFailRule.message', { mission: currentMission.number, threshold: failThreshold })}
               </span>
             </div>
