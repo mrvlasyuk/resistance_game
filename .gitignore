@@ -21,3 +21,5 @@ coverage/
 .env
 .env.*
 
+.tmp/
+screenshots/

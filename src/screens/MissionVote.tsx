@@ -9,7 +9,11 @@ import { getFailThreshold } from '../utils/gameLogic';
 
 export function MissionVote() {
   const [selectedCard, setSelectedCard] = useState<'success' | 'fail' | null>(null);
-  const [showVoteScreen, setShowVoteScreen] = useState(false);
+  const [showVoteScreen, setShowVoteScreen] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const allow = !!params.get('shot');
+    return allow && params.get('vote') === '1';
+  });
   const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const { 
     players, 

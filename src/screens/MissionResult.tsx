@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { MissionProgressIndicator } from '../components/MissionProgressIndicator';
@@ -7,7 +7,16 @@ import { useTranslation } from '../hooks/useTranslation';
 import { getPublicMissionVoteCounts } from '../utils/gameLogic';
 
 export function MissionResult() {
-  const [showCards, setShowCards] = useState(false);
+  const { forceShowCards, noAnim } = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const allow = !!params.get('shot');
+    return {
+      forceShowCards: allow && params.get('cards') === '1',
+      noAnim: allow && params.get('noAnim') === '1',
+    };
+  }, []);
+
+  const [showCards, setShowCards] = useState(forceShowCards);
   const { missions, nextMission, setPhase, winner, totalPlayers } = useGameStore();
   const { t } = useTranslation();
 
@@ -29,10 +38,11 @@ export function MissionResult() {
   const isGameOver = winner !== null;
 
   useEffect(() => {
+    if (showCards) return;
     // Show cards after a short delay for dramatic effect
     const timer = setTimeout(() => setShowCards(true), 1000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [showCards]);
 
   const handleNext = () => {
     if (isGameOver) {
@@ -44,15 +54,16 @@ export function MissionResult() {
 
   const renderMissionCards = () => {
     const cards = [];
+    const flipClass = showCards && !noAnim ? 'animate-card-flip' : '';
     
     // Add success cards
     for (let i = 0; i < successVotes; i++) {
       cards.push(
         <div
           key={`success-${i}`}
-          className={`mission-card mission-card-success ${
-            showCards ? 'animate-card-flip' : 'mission-card-back'
-          }`}
+          className={`mission-card ${
+            showCards ? 'mission-card-success' : 'mission-card-back'
+          } ${flipClass}`}
           style={{ animationDelay: `${i * 200}ms` }}
         >
           {showCards ? t('missionVote.success') : '?'}
@@ -65,9 +76,9 @@ export function MissionResult() {
       cards.push(
         <div
           key={`fail-${i}`}
-          className={`mission-card mission-card-fail ${
-            showCards ? 'animate-card-flip' : 'mission-card-back'
-          }`}
+          className={`mission-card ${
+            showCards ? 'mission-card-fail' : 'mission-card-back'
+          } ${flipClass}`}
           style={{ animationDelay: `${(successVotes + i) * 200}ms` }}
         >
           {showCards ? t('missionVote.fail') : '?'}

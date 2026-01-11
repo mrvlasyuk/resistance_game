@@ -118,6 +118,28 @@ src/
 └── App.tsx             # Main application component
 ```
 
+## Screenshot / Demo States
+
+For making nice mobile screenshots, you can seed a few interesting demo states via URL params:
+
+- `?shot=<id>`: loads a predefined complex game state into `localStorage`
+- `&vote=1`: opens the private mission vote card screen (for `mission-vote` shots)
+- `&cards=1&noAnim=1`: shows mission result cards immediately (no flip animation)
+
+Available `shot` ids:
+
+- `captain-m4-specialrule`
+- `team-vote-m4-tension`
+- `mission-vote-m4-private`
+- `mission-result-m4-fail-2red`
+
+Short links (hosted as static pages, for sharing):
+
+- `/1/` → `captain-m4-specialrule`
+- `/2/` → `team-vote-m4-tension`
+- `/3/` → `mission-vote-m4-private` (+`vote=1`)
+- `/4/` → `mission-result-m4-fail-2red` (+`cards=1&noAnim=1`)
+
 ## Game State Schema
 
 ```typescript
